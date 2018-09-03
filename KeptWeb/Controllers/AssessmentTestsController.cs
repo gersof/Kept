@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using KeptWeb.Models;
 using KeptWeb.Repositories;
+using Newtonsoft.Json;
 
 namespace KeptWeb.Controllers
 {
@@ -26,10 +27,19 @@ namespace KeptWeb.Controllers
 		}
 
 		[HttpGet]
-		public JsonResult GetAssessment()
+		public ActionResult GetAssessment()
 		{
 			var AssessmentsQuestions = _assessment.GetAssessments();
-			return new JsonResult { Data = AssessmentsQuestions, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+			var list = JsonConvert.SerializeObject(AssessmentsQuestions,
+					   Formatting.None,
+					   new JsonSerializerSettings()
+					   {
+						   ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+					   });
+
+			return Content(list, "application/json");
+			
 		}
 	}
 }
