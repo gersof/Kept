@@ -17,5 +17,10 @@ namespace KeptWeb.Repositories
 			_context.Employee.Add(employee);
 			_context.SaveChanges();
 		}
+
+		public Employee GetEmployee(string userId)
+		{
+			return _context.Employee.Single(e => e.UserId == userId);
+		}
 	}
 }

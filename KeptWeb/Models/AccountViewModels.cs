@@ -89,7 +89,22 @@ namespace KeptWeb.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordViewModel
+	public class RegisterRoleViewModel
+	{
+		[Required]
+		[Display(Name = "Usuario")]
+		public string UserId { get; set; }
+
+		[Required]
+		[Display(Name = "Rol")]
+		public string RoleId { get; set; }
+
+		public IList<Employee> Employees { get; set; }
+		public IList<AspNetRoles> Roles { get; set; }
+
+	}
+
+	public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]

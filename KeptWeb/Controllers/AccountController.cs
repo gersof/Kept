@@ -182,6 +182,41 @@ namespace KeptWeb.Controllers
 			return View(model);
 		}
 
+
+		// GET: /Account/Register
+		[AllowAnonymous]
+		public ActionResult RegisterRoles()
+		{
+			var viewModel = new RegisterRoleViewModel
+			{
+				Employees = _context.Employee.ToList(),
+				Roles = _context.AspNetRoles.ToList()
+			};
+			return View(viewModel);
+		}
+
+		// POST: /Account/Register
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public ActionResult RegisterRoles(RegisterRoleViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var userRole = new AspNetUserRoles { UserId= model.UserId, RoleId = model.RoleId };
+				var role = _context.AspNetRoles.FirstOrDefault(r => r.Id == model.RoleId);
+				var result = UserManager.AddToRole(userRole.UserId,role.Name);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index", "Home");
+				}
+				AddErrors(result);
+			}
+
+			// If we got this far, something failed, redisplay form
+			return View(model);
+		}
+
 		//
 		// GET: /Account/ConfirmEmail
 		[AllowAnonymous]

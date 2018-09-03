@@ -12,12 +12,15 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogins
+    public partial class ActionItems
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
+        public long ActionItemId { get; set; }
+        public string Description { get; set; }
+        public System.DateTime DueDate { get; set; }
+        public string PostActionUpdate { get; set; }
+        public string EmployeeDocumentId { get; set; }
+        public bool Completed { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
