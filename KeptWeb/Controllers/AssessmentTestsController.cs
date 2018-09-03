@@ -1,6 +1,7 @@
 ﻿using KeptWeb.Models;
 using KeptWeb.Repositories;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace KeptWeb.Controllers
@@ -35,12 +36,12 @@ namespace KeptWeb.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult CreateAssessment(AssessmentTestResults assessment)
+		public JsonResult CreateAssessment(List<AssessmentTestResults> assessment)
 		{
 			var employee = _employee.GetEmployee(User.Identity.GetUserId());
-			assessment.EmployeeDocumentId = employee.DocumentId;
+			
 			var result = new JsonResult();
-			if (_assessment.CreateAssessment(assessment))
+			if (_assessment.CreateAssessment(assessment,employee.DocumentId))
 			{
 				result.Data = new { status = "200", message = "Se ha guardado correctamente" };
 				return result;
