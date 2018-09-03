@@ -20,15 +20,31 @@
             </div>
             <div id="@("collapseItem_"+item.CAndPId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@("Item_"+item.CAndPId)">
                 <div class="panel-body">
+                    <p>
+                        @item.Description
+                    </p>
                     @foreach (var question in item.AssessmentTestsQuestions)
                     {
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                               @question.QuestionText
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>
+                                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">
+                                    </span>
+                                    @question.QuestionText
+                                </h5>
                             </div>
-                            <div class="panel-footer">Panel footer</div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success">Yes</button>
+                                <button class="btn btn-danger">No</button>
+                            </div>
+                            <div class="col-md-2">
+
+                                <textarea cols="30" rows="2"></textarea>
+                            </div>
                         </div>
-                    }
+                    </div>
+                    <hr />
+                }
                 </div>
             </div>
         </div>
@@ -117,4 +133,4 @@
                 </div>
             </div>
         </div>*@
-</div>
+    </div>
