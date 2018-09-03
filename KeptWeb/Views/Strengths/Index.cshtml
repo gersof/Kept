@@ -1,11 +1,9 @@
-﻿
+﻿@model KeptWeb.Models.StrengthsByEmployee
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<head>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -32,17 +30,16 @@
             background-color: white;
         }
     </style>
-</head>
-<body>
     <h2>Strenghts</h2>
     <table id="tableMain">
         <tr>
             <th width="70%">Description</th>
         </tr>
-        <tr>
-            <td id="tdLeft">Fast Coder</td>
-        </tr>
-        <tr>
-            <td id="tdLeft">Good Bussiness undestanding</td>
-        </tr>
+        @foreach (var st in Model.Strengths)
+        {
+            <tr>
+                <td id="tdLeft">@st.Description</td>
+            </tr>
+        }
     </table>
+
