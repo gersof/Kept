@@ -211,6 +211,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssessmentTestsController.cs" />
+    <Compile Include="Controllers\DemoRatingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OpportunitiesImprovementController.cs" />
@@ -303,6 +304,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jsRapStar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -339,6 +341,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsRapStar.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -380,11 +383,11 @@
     <Content Include="Views\Trainings\Index.cshtml" />
     <Content Include="Views\Performanceprofile\Index.cshtml" />
     <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
+    <Content Include="Views\DemoRating\DemoRating.cshtml" />
+    <Content Include="Views\DemoRating\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewFolder1\" />
-    <Folder Include="Views\PreformanceProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
