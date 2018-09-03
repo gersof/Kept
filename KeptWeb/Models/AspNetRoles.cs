@@ -12,21 +12,18 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Trainnings
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Trainnings()
+        public AspNetRoles()
         {
-            this.TrainningsByPP = new HashSet<TrainningsByPP>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
-        public long TrainningId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Room { get; set; }
-        public int Hours { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrainningsByPP> TrainningsByPP { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

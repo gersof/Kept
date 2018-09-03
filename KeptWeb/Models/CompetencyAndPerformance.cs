@@ -19,6 +19,7 @@ namespace KeptWeb.Models
         {
             this.AssessmentTestQuestions = new HashSet<AssessmentTestQuestions>();
             this.CAndPByPP = new HashSet<CAndPByPP>();
+            this.OportunitiesOfImprovement = new HashSet<OportunitiesOfImprovement>();
         }
     
         public long CAndPId { get; set; }
@@ -30,5 +31,7 @@ namespace KeptWeb.Models
         public virtual ICollection<AssessmentTestQuestions> AssessmentTestQuestions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAndPByPP> CAndPByPP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OportunitiesOfImprovement> OportunitiesOfImprovement { get; set; }
     }
 }
