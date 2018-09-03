@@ -231,6 +231,9 @@
     <Compile Include="Models\AspNetUserLogins.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUserRoles.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
