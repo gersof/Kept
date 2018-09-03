@@ -285,6 +285,9 @@
     <Compile Include="Models\Skills.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Strengths.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>

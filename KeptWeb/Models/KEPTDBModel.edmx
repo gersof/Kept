@@ -121,6 +121,8 @@
           <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DeliveryUnitId" Type="int" Nullable="false" />
           <Property Name="GradeId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LeadCC" Type="bigint" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -334,6 +336,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="CC" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Grades">
           <End Role="Grades" Type="Self.Grades" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -492,6 +506,10 @@
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Grades" Association="Self.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
             <End Role="Employee" EntitySet="Employee" />
@@ -612,6 +630,10 @@
           <AssociationSet Name="SkillsByPP" Association="KEPT_DBModel.SkillsByPP">
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
             <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="KEPT_DBModel.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -743,6 +765,10 @@
           <NavigationProperty Name="DeliveryUnits" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
           <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LeadCC" Type="Int64" />
+          <NavigationProperty Name="Employee1" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+          <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -1011,6 +1037,18 @@
           <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
           <End Type="KEPT_DBModel.Skills" Role="Skills" Multiplicity="*" />
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="CC" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1126,6 +1164,8 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="KEPT_DBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="LeadCC" ColumnName="LeadCC" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GradeId" ColumnName="GradeId" />
                 <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />

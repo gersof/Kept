@@ -19,12 +19,15 @@ namespace KeptWeb.Models
         {
             this.AssessmentTestResults = new HashSet<AssessmentTestResults>();
             this.PerformanceProfile = new HashSet<PerformanceProfile>();
+            this.Employee1 = new HashSet<Employee>();
         }
     
         public long CC { get; set; }
         public string FullName { get; set; }
         public int DeliveryUnitId { get; set; }
         public int GradeId { get; set; }
+        public string UserId { get; set; }
+        public Nullable<long> LeadCC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentTestResults> AssessmentTestResults { get; set; }
@@ -32,5 +35,8 @@ namespace KeptWeb.Models
         public virtual Grades Grades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PerformanceProfile> PerformanceProfile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee1 { get; set; }
+        public virtual Employee Employee2 { get; set; }
     }
 }

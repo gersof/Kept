@@ -20,7 +20,8 @@ namespace KeptWeb.Controllers
 		[Authorize]
 		public ActionResult Index()
 		{
-			return View();
+            var AssessmentsQuestions = _assessment.GetAssessments();
+            return View(AssessmentsQuestions);
 		}
 
 		[HttpGet]

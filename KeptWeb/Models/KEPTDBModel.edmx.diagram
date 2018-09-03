@@ -40,6 +40,7 @@
         <AssociationConnector Association="KEPT_DBModel.FK_TrainningsByPP_Trainnings" />
         <AssociationConnector Association="KEPT_DBModel.AspNetUserRoles" />
         <AssociationConnector Association="KEPT_DBModel.SkillsByPP" />
+        <AssociationConnector Association="KEPT_DBModel.FK_Employee_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
