@@ -30,5 +30,10 @@ namespace KeptWeb.Repositories
 			}
 			return assessmentQuestions;
 		}
+		public void CreateAssessment(AssessmentTestResults assessment)
+		{
+			_context.AssessmentTestResults.Add(assessment);
+			_context.SaveChanges();
+		}
 	}
 }
