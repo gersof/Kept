@@ -253,9 +253,6 @@
     <Compile Include="Models\CompetencyAndPerformance.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>KEPTDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DeliveryUnits.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -296,9 +293,6 @@
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Strengths.cs">
-      <DependentUpon>KEPTDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trainnings.cs">
