@@ -231,6 +231,9 @@
     <Compile Include="Models\AspNetUserLogins.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUserRoles.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -390,6 +393,7 @@
     <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
+    <Content Include="Views\Account\UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
