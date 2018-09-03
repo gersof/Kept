@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+	<head>
+		<style>
+			table, th, td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			th {
+				background-color: black;
+				color: white
+			}
+
+			th, td {
+				padding: 15px;
+				text-align: center;
+			}
+
+			table#tableMain {
+				width: 100%;
+				background-color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Oportunities of Improvement</h2>
+		<table id="tableMain">
+			<tr>
+				<th width="60%">Description</th>
+				<th>Approved?</th>
+				<th>Accomplished date</th>
+			</tr>
+			<tr style="text-align:center">
+				<td>Angular Trainning</td>
+				<td><span><i class="glyphicon glyphicon-thumbs-up"></i></span></td>
+				<td>15/07/2018</td>
+			</tr>
+			<tr style="text-align:center">
+				<td>React JS</td>
+				<td><span><i class="glyphicon glyphicon-thumbs-down"></i></span></td>
+				<td></td>
+			</tr>
+		</table>
+	</body>
+</html>
+
+

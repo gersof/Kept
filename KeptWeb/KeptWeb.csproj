@@ -284,7 +284,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\AssessmentTests\Index.cshtml" />
-    <Content Include="Views\OportunitiesImprovement\Index.cshtml" />
+    <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
     <Content Include="Views\Strenghts\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Trainnings\Index.cshtml" />
