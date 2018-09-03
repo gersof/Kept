@@ -214,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OportunitiesImprovementController.cs" />
+    <Compile Include="Controllers\PerformanceprofileController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\StrengthsController.cs" />
     <Compile Include="Controllers\TrainingsController.cs" />
@@ -378,6 +379,7 @@
     <Content Include="Views\Strengths\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Trainings\Index.cshtml" />
+    <Content Include="Views\Performanceprofile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
