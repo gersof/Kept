@@ -18,7 +18,7 @@ namespace KeptWeb.Models
         public System.DateTime CompletedDate { get; set; }
         public long QuestionId { get; set; }
         public float Score { get; set; }
-        public long EmployeeCC { get; set; }
+        public string EmployeeDocumentId { get; set; }
         public float SelfScore { get; set; }
         public string SelfComments { get; set; }
     

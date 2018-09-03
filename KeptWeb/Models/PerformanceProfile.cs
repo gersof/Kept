@@ -23,8 +23,7 @@ namespace KeptWeb.Models
         }
     
         public long PPId { get; set; }
-        public long EmployeeCC { get; set; }
-        public string PictureURL { get; set; }
+        public string EmployeeDocumentId { get; set; }
         public Nullable<int> TeamScore { get; set; }
         public Nullable<int> ClientScore { get; set; }
         public Nullable<int> ProjectScore { get; set; }

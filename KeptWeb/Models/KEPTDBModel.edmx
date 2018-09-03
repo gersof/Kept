@@ -82,7 +82,7 @@
           <Property Name="CompletedDate" Type="datetime" Nullable="false" />
           <Property Name="QuestionId" Type="bigint" Nullable="false" />
           <Property Name="Score" Type="real" Nullable="false" />
-          <Property Name="EmployeeCC" Type="bigint" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="SelfScore" Type="real" Nullable="false" />
           <Property Name="SelfComments" Type="varchar" MaxLength="300" />
         </EntityType>
@@ -115,12 +115,15 @@
         </EntityType>
         <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="CC" />
+            <PropertyRef Name="DocumentId" />
           </Key>
-          <Property Name="CC" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DeliveryUnitId" Type="int" Nullable="false" />
-          <Property Name="GradeId" Type="int" Nullable="false" />
+          <Property Name="DeliveryUnitId" Type="int" />
+          <Property Name="GradeId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LeadDocumentId" Type="varchar" MaxLength="30" />
+          <Property Name="PictureURL" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -145,8 +148,7 @@
             <PropertyRef Name="PPId" />
           </Key>
           <Property Name="PPId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeCC" Type="bigint" Nullable="false" />
-          <Property Name="PictureURL" Type="varchar" MaxLength="300" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="TeamScore" Type="int" />
           <Property Name="ClientScore" Type="int" />
           <Property Name="ProjectScore" Type="int" />
@@ -235,10 +237,10 @@
           <End Role="AssessmentTestResults" Type="Self.AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="AssessmentTestResults">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -323,7 +325,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_DeliveryUnits">
-          <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="1" />
+          <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryUnits">
@@ -334,8 +336,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Grades">
-          <End Role="Grades" Type="Self.Grades" Multiplicity="1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grades">
@@ -363,10 +377,10 @@
           <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="PerformanceProfile">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -492,6 +506,10 @@
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Grades" Association="Self.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
             <End Role="Employee" EntitySet="Employee" />
@@ -588,6 +606,10 @@
           <AssociationSet Name="FK_Employee_DeliveryUnits" Association="KEPT_DBModel.FK_Employee_DeliveryUnits">
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="KEPT_DBModel.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Grades" Association="KEPT_DBModel.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
@@ -691,7 +713,7 @@
           <Property Name="CompletedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="QuestionId" Type="Int64" Nullable="false" />
           <Property Name="Score" Type="Single" Nullable="false" />
-          <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SelfScore" Type="Single" Nullable="false" />
           <Property Name="SelfComments" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssessmentTestQuestions" Relationship="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestResults" ToRole="AssessmentTestQuestions" />
@@ -733,14 +755,19 @@
         </EntityType>
         <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="CC" />
+            <PropertyRef Name="DocumentId" />
           </Key>
-          <Property Name="CC" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryUnitId" Type="Int32" Nullable="false" />
-          <Property Name="GradeId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryUnitId" Type="Int32" />
+          <Property Name="GradeId" Type="Int32" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LeadDocumentId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssessmentTestResults" Relationship="KEPT_DBModel.FK_AssessmentTestResults_Employee" FromRole="Employee" ToRole="AssessmentTestResults" />
           <NavigationProperty Name="DeliveryUnits" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
+          <NavigationProperty Name="Employee1" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+          <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
           <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
         </EntityType>
@@ -769,8 +796,7 @@
             <PropertyRef Name="PPId" />
           </Key>
           <Property Name="PPId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
-          <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeDocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="TeamScore" Type="Int32" />
           <Property Name="ClientScore" Type="Int32" />
           <Property Name="ProjectScore" Type="Int32" />
@@ -888,10 +914,10 @@
           <End Type="KEPT_DBModel.AssessmentTestResults" Role="AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="AssessmentTestResults">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -944,7 +970,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_DeliveryUnits">
-          <End Type="KEPT_DBModel.DeliveryUnits" Role="DeliveryUnits" Multiplicity="1" />
+          <End Type="KEPT_DBModel.DeliveryUnits" Role="DeliveryUnits" Multiplicity="0..1" />
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryUnits">
@@ -955,8 +981,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Grades">
-          <End Type="KEPT_DBModel.Grades" Role="Grades" Multiplicity="1" />
+          <End Type="KEPT_DBModel.Grades" Role="Grades" Multiplicity="0..1" />
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grades">
@@ -972,10 +1010,10 @@
           <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="PerformanceProfile">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1086,7 +1124,7 @@
               <MappingFragment StoreEntitySet="AssessmentTestResults">
                 <ScalarProperty Name="SelfComments" ColumnName="SelfComments" />
                 <ScalarProperty Name="SelfScore" ColumnName="SelfScore" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="Score" ColumnName="Score" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
@@ -1126,10 +1164,13 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="KEPT_DBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="LeadDocumentId" ColumnName="LeadDocumentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GradeId" ColumnName="GradeId" />
                 <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1160,8 +1201,7 @@
                 <ScalarProperty Name="ProjectScore" ColumnName="ProjectScore" />
                 <ScalarProperty Name="ClientScore" ColumnName="ClientScore" />
                 <ScalarProperty Name="TeamScore" ColumnName="TeamScore" />
-                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="PPId" ColumnName="PPId" />
               </MappingFragment>
             </EntityTypeMapping>
