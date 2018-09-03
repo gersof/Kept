@@ -1,7 +1,6 @@
 ﻿using KeptWeb.Models;
 using KeptWeb.Repositories;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 
 namespace KeptWeb.Controllers
 {
