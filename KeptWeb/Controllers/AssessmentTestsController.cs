@@ -1,7 +1,7 @@
 ﻿using KeptWeb.Models;
 using KeptWeb.Repositories;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace KeptWeb.Controllers
 {
@@ -16,7 +16,6 @@ namespace KeptWeb.Controllers
 			_context = new KEPT_DBEntities();
 			_assessment = new AssessmentsQuestionsRepository(_context);
 			_employee = new EmployeeRepository(_context);
-
 		}
 
 		// GET: AssessmentTests
@@ -36,12 +35,18 @@ namespace KeptWeb.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreateAssessment(AssessmentTestResults assessment)
+		public JsonResult CreateAssessment(AssessmentTestResults assessment)
 		{
 			var employee = _employee.GetEmployee(User.Identity.GetUserId());
 			assessment.EmployeeDocumentId = employee.DocumentId;
-			var AssessmentsQuestions = _assessment.CreateAssessments(assessment);
-			return RedirectToAction("Index", "Home");
+			var result = new JsonResult();
+			if (_assessment.CreateAssessment(assessment))
+			{
+				result.Data = new { status = "200", message = "Se ha guardado correctamente" };
+				return result;
+			}
+			result.Data = new { status = "500", message = "Error al guardar" };
+			return result;
 		}
 
 
