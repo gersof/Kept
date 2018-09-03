@@ -25,18 +25,10 @@
                 @Html.ActionLink("KEPT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-<<<<<<< HEAD
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Performance Profile", "Index", "PerformanceProfile")</li>
-                    <li>@Html.ActionLink("Assessment Tests", "Index", "AssessmentTests")</li>
-                    <li>@Html.ActionLink("Opportunities of Improvement / Action Items", "Index", "OOIandAI")</li>
-                    <li>@Html.ActionLink("Strengths", "Index", "Strengths")</li>
-                </ul>
-=======
 				<ul class="nav navbar-nav">
 					<li>@Html.ActionLink("Performance Profile", "Index", "PerformanceProfile")</li>
 					<li>@Html.ActionLink("Assessment Tests", "Index", "AssessmentTests")</li>
-					<li>@Html.ActionLink("Opportunities of Improvement", "Index", "OpportunitiesImprovement")</li>
+					<li>@Html.ActionLink("Opportunities of Improvement / Action Items", "Index", "OOIandAI")</li>
 					<li>@Html.ActionLink("Strengths", "Index", "Strengths")</li>
 					@if (User.IsInRole("Admin"))
 					{
@@ -45,7 +37,6 @@
 						</li>
 							}
 					</ul>
->>>>>>> cb7af86938b084d132f61f66d5a733b919f02a23
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
