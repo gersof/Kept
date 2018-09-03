@@ -8,7 +8,7 @@ namespace KeptWeb.Controllers
 {
     public class SkillsController : Controller
     {
-        // GET: Skills
+        // GET: Skills from SQL Server
         [Authorize]
         public ActionResult Index()
         {
