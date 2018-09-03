@@ -324,6 +324,7 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
       <LastGenOutput>KEPTDBModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\appjs\AssessmentTests.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
