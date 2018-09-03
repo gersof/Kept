@@ -26,21 +26,28 @@
                     @foreach (var question in item.AssessmentTestsQuestions)
                     {
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <h5>
                                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true">
                                     </span>
                                     @question.QuestionText
                                 </h5>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-success">Yes</button>
-                                <button class="btn btn-danger">No</button>
-                                <textarea cols="25" rows="2"></textarea>
-                            </div>                            
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default" aria-label="Bold"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button type="button" class="btn btn-default" aria-label="Italic"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="...">
+
+                                    <button type="button" class="btn btn-default" aria-label="Bold"><span class="glyphicon glyphicon-save"></span></button>
+                                </div>
+
+                            </div>
                         </div>
-                    <hr />
-                }
+                        <hr />
+                    }
                 </div>
             </div>
         </div>
@@ -129,4 +136,4 @@
                 </div>
             </div>
         </div>*@
-    </div>
+</div>
