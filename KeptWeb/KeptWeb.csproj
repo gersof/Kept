@@ -377,6 +377,7 @@
     <Content Include="Views\Strengths\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Trainings\Index.cshtml" />
+    <Content Include="Views\Performanceprofile\Index.cshtml" />
     <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
