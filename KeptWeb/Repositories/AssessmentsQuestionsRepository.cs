@@ -38,6 +38,7 @@ namespace KeptWeb.Repositories
 			{
 				foreach (var item in assessment)
 				{
+					item.EmployeeDocumentId = employeeId;
 					_context.AssessmentTestResults.Add(item);
 					_context.SaveChanges();
 				}
