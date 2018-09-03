@@ -9,6 +9,8 @@ namespace KeptWeb.Controllers
     public class TrainingsController : Controller
     {
         // GET: Trainnings
+        [Authorize]
+
         public ActionResult Index()
         {
             return View();

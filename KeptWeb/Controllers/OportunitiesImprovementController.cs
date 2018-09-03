@@ -9,6 +9,7 @@ namespace KeptWeb.Controllers
     public class OportunitiesImprovementController : Controller
     {
         // GET: OportunitiesImprovement
+        [Authorize]
         public ActionResult Index()
         {
             return View();

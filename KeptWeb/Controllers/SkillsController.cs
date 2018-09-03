@@ -9,6 +9,7 @@ namespace KeptWeb.Controllers
     public class SkillsController : Controller
     {
         // GET: Skills
+        [Authorize]
         public ActionResult Index()
         {
             return View();
