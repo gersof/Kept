@@ -17,7 +17,7 @@ namespace KeptWeb.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Skills()
         {
-            this.PerformanceProfile = new HashSet<PerformanceProfile>();
+            this.SkillsByPP = new HashSet<SkillsByPP>();
         }
     
         public int SkillId { get; set; }
@@ -25,6 +25,6 @@ namespace KeptWeb.Models
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PerformanceProfile> PerformanceProfile { get; set; }
+        public virtual ICollection<SkillsByPP> SkillsByPP { get; set; }
     }
 }

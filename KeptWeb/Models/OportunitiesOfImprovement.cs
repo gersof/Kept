@@ -17,9 +17,9 @@ namespace KeptWeb.Models
         public long OOIId { get; set; }
         public long CAndPId { get; set; }
         public string Description { get; set; }
-        public bool Completed { get; set; }
-        public System.DateTime GoalDate { get; set; }
+        public string EmployeeDocumentId { get; set; }
     
         public virtual CompetencyAndPerformance CompetencyAndPerformance { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

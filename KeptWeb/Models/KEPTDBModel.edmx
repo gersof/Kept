@@ -15,6 +15,23 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'KEPT_DB.dbo.ActionItems' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ActionItems">
+          <Key>
+            <PropertyRef Name="ActionItemId" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="DueDate" />
+            <PropertyRef Name="EmployeeDocumentId" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="ActionItemId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
+          <Property Name="PostActionUpdate" Type="varchar" MaxLength="300" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -141,8 +158,7 @@
           <Property Name="OOIId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CAndPId" Type="bigint" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="Completed" Type="bit" Nullable="false" />
-          <Property Name="GoalDate" Type="datetime" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="PerformanceProfile">
           <Key>
@@ -170,6 +186,7 @@
           </Key>
           <Property Name="SkillId" Type="int" Nullable="false" />
           <Property Name="PPId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Strengths">
           <Key>
@@ -178,6 +195,7 @@
           <Property Name="StrenghId" Type="bigint" Nullable="false" />
           <Property Name="CAndPId" Type="bigint" Nullable="false" />
           <Property Name="Description" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -209,6 +227,18 @@
           <Property Name="AsistancePorcentage" Type="real" />
           <Property Name="Certified" Type="bit" />
         </EntityType>
+        <Association Name="FK_ActionItems_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ActionItems" Type="Self.ActionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="ActionItems">
+              <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssessmentTestQuestions_CompetencyAndPerformance">
           <End Role="CompetencyAndPerformance" Type="Self.CompetencyAndPerformance" Multiplicity="1" />
           <End Role="AssessmentTestQuestions" Type="Self.AssessmentTestQuestions" Multiplicity="*" />
@@ -373,6 +403,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OportunitiesOfImprovement_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="OportunitiesOfImprovement" Type="Self.OportunitiesOfImprovement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="OportunitiesOfImprovement">
+              <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PerformanceProfile_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="*" />
@@ -418,6 +460,18 @@
             </Principal>
             <Dependent Role="Strengths">
               <PropertyRef Name="CAndPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Strengths_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Strengths" Type="Self.Strengths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Strengths">
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -467,6 +521,20 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainnings" EntityType="Self.Trainnings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainningsByPP" EntityType="Self.TrainningsByPP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionItems" EntityType="Self.ActionItems" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ActionItems].[ActionItemId] AS [ActionItemId], 
+    [ActionItems].[Description] AS [Description], 
+    [ActionItems].[DueDate] AS [DueDate], 
+    [ActionItems].[PostActionUpdate] AS [PostActionUpdate], 
+    [ActionItems].[EmployeeDocumentId] AS [EmployeeDocumentId], 
+    [ActionItems].[Completed] AS [Completed]
+    FROM [dbo].[ActionItems] AS [ActionItems]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ActionItems_Employee" Association="Self.FK_ActionItems_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ActionItems" EntitySet="ActionItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_AssessmentTestQuestions_CompetencyAndPerformance" Association="Self.FK_AssessmentTestQuestions_CompetencyAndPerformance">
             <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
             <End Role="AssessmentTestQuestions" EntitySet="AssessmentTestQuestions" />
@@ -519,6 +587,10 @@
             <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
             <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
           </AssociationSet>
+          <AssociationSet Name="FK_OportunitiesOfImprovement_Employee" Association="Self.FK_OportunitiesOfImprovement_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
+          </AssociationSet>
           <AssociationSet Name="FK_PerformanceProfile_Employee" Association="Self.FK_PerformanceProfile_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
@@ -533,6 +605,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Strengths_CompetencyAndPerformance" Association="Self.FK_Strengths_CompetencyAndPerformance">
             <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="Strengths" EntitySet="Strengths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Strengths_Employee" Association="Self.FK_Strengths_Employee">
+            <End Role="Employee" EntitySet="Employee" />
             <End Role="Strengths" EntitySet="Strengths" />
           </AssociationSet>
           <AssociationSet Name="FK_TrainningsByPP_PerformanceProfile" Association="Self.FK_TrainningsByPP_PerformanceProfile">
@@ -565,10 +641,12 @@
           <EntitySet Name="OportunitiesOfImprovement" EntityType="KEPT_DBModel.OportunitiesOfImprovement" />
           <EntitySet Name="PerformanceProfile" EntityType="KEPT_DBModel.PerformanceProfile" />
           <EntitySet Name="Skills" EntityType="KEPT_DBModel.Skills" />
+          <EntitySet Name="SkillsByPP" EntityType="KEPT_DBModel.SkillsByPP" />
           <EntitySet Name="Strengths" EntityType="KEPT_DBModel.Strengths" />
           <EntitySet Name="sysdiagrams" EntityType="KEPT_DBModel.sysdiagrams" />
           <EntitySet Name="Trainnings" EntityType="KEPT_DBModel.Trainnings" />
           <EntitySet Name="TrainningsByPP" EntityType="KEPT_DBModel.TrainningsByPP" />
+          <EntitySet Name="ActionItems" EntityType="KEPT_DBModel.ActionItems" />
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="KEPT_DBModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -617,6 +695,10 @@
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_ActionItems_Employee" Association="KEPT_DBModel.FK_ActionItems_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ActionItems" EntitySet="ActionItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Employee" Association="KEPT_DBModel.FK_Employee_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Employee1" EntitySet="Employee" />
@@ -625,21 +707,33 @@
             <End Role="Grades" EntitySet="Grades" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_OportunitiesOfImprovement_Employee" Association="KEPT_DBModel.FK_OportunitiesOfImprovement_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
+          </AssociationSet>
           <AssociationSet Name="FK_PerformanceProfile_Employee" Association="KEPT_DBModel.FK_PerformanceProfile_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Strengths_Employee" Association="KEPT_DBModel.FK_Strengths_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Strengths" EntitySet="Strengths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkillsByPP_PerformanceProfile" Association="KEPT_DBModel.FK_SkillsByPP_PerformanceProfile">
+            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+            <End Role="SkillsByPP" EntitySet="SkillsByPP" />
           </AssociationSet>
           <AssociationSet Name="FK_TrainningsByPP_PerformanceProfile" Association="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile">
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
             <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
           </AssociationSet>
+          <AssociationSet Name="FK_SkillsByPP_Skills" Association="KEPT_DBModel.FK_SkillsByPP_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="SkillsByPP" EntitySet="SkillsByPP" />
+          </AssociationSet>
           <AssociationSet Name="FK_TrainningsByPP_Trainnings" Association="KEPT_DBModel.FK_TrainningsByPP_Trainnings">
             <End Role="Trainnings" EntitySet="Trainnings" />
             <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
-          </AssociationSet>
-          <AssociationSet Name="SkillsByPP" Association="KEPT_DBModel.SkillsByPP">
-            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
-            <End Role="Skills" EntitySet="Skills" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -783,10 +877,13 @@
           <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssessmentTestResults" Relationship="KEPT_DBModel.FK_AssessmentTestResults_Employee" FromRole="Employee" ToRole="AssessmentTestResults" />
           <NavigationProperty Name="DeliveryUnits" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
+          <NavigationProperty Name="ActionItems" Relationship="KEPT_DBModel.FK_ActionItems_Employee" FromRole="Employee" ToRole="ActionItems" />
           <NavigationProperty Name="Employee1" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
           <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
           <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
+          <NavigationProperty Name="OportunitiesOfImprovement" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_Employee" FromRole="Employee" ToRole="OportunitiesOfImprovement" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="Strengths" Relationship="KEPT_DBModel.FK_Strengths_Employee" FromRole="Employee" ToRole="Strengths" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -804,9 +901,9 @@
           <Property Name="OOIId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CAndPId" Type="Int64" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Completed" Type="Boolean" Nullable="false" />
-          <Property Name="GoalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmployeeDocumentId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance" FromRole="OportunitiesOfImprovement" ToRole="CompetencyAndPerformance" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_Employee" FromRole="OportunitiesOfImprovement" ToRole="Employee" />
         </EntityType>
         <EntityType Name="PerformanceProfile">
           <Key>
@@ -820,8 +917,8 @@
           <Property Name="CompanyScore" Type="Int32" />
           <NavigationProperty Name="CAndPByPP" Relationship="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="CAndPByPP" />
           <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="PerformanceProfile" ToRole="Employee" />
+          <NavigationProperty Name="SkillsByPP" Relationship="KEPT_DBModel.FK_SkillsByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="SkillsByPP" />
           <NavigationProperty Name="TrainningsByPP" Relationship="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="TrainningsByPP" />
-          <NavigationProperty Name="Skills" Relationship="KEPT_DBModel.SkillsByPP" FromRole="PerformanceProfile" ToRole="Skills" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
@@ -830,7 +927,18 @@
           <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.SkillsByPP" FromRole="Skills" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="SkillsByPP" Relationship="KEPT_DBModel.FK_SkillsByPP_Skills" FromRole="Skills" ToRole="SkillsByPP" />
+        </EntityType>
+        <EntityType Name="SkillsByPP">
+          <Key>
+            <PropertyRef Name="SkillId" />
+            <PropertyRef Name="PPId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="PPId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_SkillsByPP_PerformanceProfile" FromRole="SkillsByPP" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="Skills" Relationship="KEPT_DBModel.FK_SkillsByPP_Skills" FromRole="SkillsByPP" ToRole="Skills" />
         </EntityType>
         <EntityType Name="Strengths">
           <Key>
@@ -839,7 +947,9 @@
           <Property Name="StrenghId" Type="Int64" Nullable="false" />
           <Property Name="CAndPId" Type="Int64" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EmployeeDocumentId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_Strengths_CompetencyAndPerformance" FromRole="Strengths" ToRole="CompetencyAndPerformance" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_Strengths_Employee" FromRole="Strengths" ToRole="Employee" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -873,6 +983,22 @@
           <Property Name="Certified" Type="Boolean" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" FromRole="TrainningsByPP" ToRole="PerformanceProfile" />
           <NavigationProperty Name="Trainnings" Relationship="KEPT_DBModel.FK_TrainningsByPP_Trainnings" FromRole="TrainningsByPP" ToRole="Trainnings" />
+        </EntityType>
+        <EntityType Name="ActionItems">
+          <Key>
+            <PropertyRef Name="ActionItemId" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="DueDate" />
+            <PropertyRef Name="EmployeeDocumentId" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="ActionItemId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PostActionUpdate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeDocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_ActionItems_Employee" FromRole="ActionItems" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Type="KEPT_DBModel.AspNetRoles" Role="AspNetRoles" Multiplicity="1">
@@ -1026,6 +1152,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ActionItems_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="KEPT_DBModel.ActionItems" Role="ActionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="ActionItems">
+              <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Employee">
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
           <End Type="KEPT_DBModel.Employee" Role="Employee1" Multiplicity="*" />
@@ -1050,6 +1188,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OportunitiesOfImprovement_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="KEPT_DBModel.OportunitiesOfImprovement" Role="OportunitiesOfImprovement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="OportunitiesOfImprovement">
+              <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PerformanceProfile_Employee">
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
@@ -1059,6 +1209,30 @@
             </Principal>
             <Dependent Role="PerformanceProfile">
               <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Strengths_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="KEPT_DBModel.Strengths" Role="Strengths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Strengths">
+              <PropertyRef Name="EmployeeDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkillsByPP_PerformanceProfile">
+          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="1" />
+          <End Type="KEPT_DBModel.SkillsByPP" Role="SkillsByPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerformanceProfile">
+              <PropertyRef Name="PPId" />
+            </Principal>
+            <Dependent Role="SkillsByPP">
+              <PropertyRef Name="PPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1074,6 +1248,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SkillsByPP_Skills">
+          <End Type="KEPT_DBModel.Skills" Role="Skills" Multiplicity="1" />
+          <End Type="KEPT_DBModel.SkillsByPP" Role="SkillsByPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="SkillsByPP">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TrainningsByPP_Trainnings">
           <End Type="KEPT_DBModel.Trainnings" Role="Trainnings" Multiplicity="1" />
           <End Type="KEPT_DBModel.TrainningsByPP" Role="TrainningsByPP" Multiplicity="*" />
@@ -1085,10 +1271,6 @@
               <PropertyRef Name="PPId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="SkillsByPP">
-          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
-          <End Type="KEPT_DBModel.Skills" Role="Skills" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1236,8 +1418,7 @@
           <EntitySetMapping Name="OportunitiesOfImprovement">
             <EntityTypeMapping TypeName="KEPT_DBModel.OportunitiesOfImprovement">
               <MappingFragment StoreEntitySet="OportunitiesOfImprovement">
-                <ScalarProperty Name="GoalDate" ColumnName="GoalDate" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
                 <ScalarProperty Name="OOIId" ColumnName="OOIId" />
@@ -1265,9 +1446,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SkillsByPP">
+            <EntityTypeMapping TypeName="KEPT_DBModel.SkillsByPP">
+              <MappingFragment StoreEntitySet="SkillsByPP">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PPId" ColumnName="PPId" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Strengths">
             <EntityTypeMapping TypeName="KEPT_DBModel.Strengths">
               <MappingFragment StoreEntitySet="Strengths">
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
                 <ScalarProperty Name="StrenghId" ColumnName="StrenghId" />
@@ -1306,14 +1497,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="SkillsByPP" TypeName="KEPT_DBModel.SkillsByPP" StoreEntitySet="SkillsByPP">
-            <EndProperty Name="Skills">
-              <ScalarProperty Name="SkillId" ColumnName="SkillId" />
-            </EndProperty>
-            <EndProperty Name="PerformanceProfile">
-              <ScalarProperty Name="PPId" ColumnName="PPId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="ActionItems">
+            <EntityTypeMapping TypeName="KEPT_DBModel.ActionItems">
+              <MappingFragment StoreEntitySet="ActionItems">
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
+                <ScalarProperty Name="PostActionUpdate" ColumnName="PostActionUpdate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ActionItemId" ColumnName="ActionItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
