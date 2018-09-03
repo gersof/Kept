@@ -393,7 +393,7 @@
     <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
-    <Content Include="Views\Account\UserRoles.cshtml" />
+    <Content Include="Views\Account\RegisterRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
