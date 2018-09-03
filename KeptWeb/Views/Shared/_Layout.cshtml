@@ -20,12 +20,18 @@
                 @Html.ActionLink("KEPT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Performance Profile", "Index", "PerformanceProfile")</li>
-                    <li>@Html.ActionLink("Assessment Tests", "Index", "AssessmentTests")</li>
-                    <li>@Html.ActionLink("Opportunities of Improvement", "Index", "OpportunitiesImprovement")</li>
-                    <li>@Html.ActionLink("Strengths", "Index", "Strengths")</li>
-                </ul>
+				<ul class="nav navbar-nav">
+					<li>@Html.ActionLink("Performance Profile", "Index", "PerformanceProfile")</li>
+					<li>@Html.ActionLink("Assessment Tests", "Index", "AssessmentTests")</li>
+					<li>@Html.ActionLink("Opportunities of Improvement", "Index", "OpportunitiesImprovement")</li>
+					<li>@Html.ActionLink("Strengths", "Index", "Strengths")</li>
+					@if (User.IsInRole("Admin"))
+					{
+						<li>
+							@Html.ActionLink("User Roles", "RegisterRoles", "Account")
+						</li>
+							}
+					</ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
