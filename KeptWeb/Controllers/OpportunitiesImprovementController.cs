@@ -1,7 +1,6 @@
 ﻿using KeptWeb.Models;
 using KeptWeb.Repositories;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 
 namespace KeptWeb.Controllers
 {
@@ -21,6 +20,7 @@ namespace KeptWeb.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public ActionResult GetOportunities()
 		{
 			var oportunities = _oportunities.GetOportunities();

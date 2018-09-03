@@ -222,6 +222,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActionItems.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -229,6 +232,9 @@
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserRoles.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUsers.cs">
@@ -286,7 +292,16 @@
     <Compile Include="Models\Skills.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Models\Strengths.cs" />
+=======
+    <Compile Include="Models\SkillsByPP.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Strengths.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
+>>>>>>> 1be59fde0490fa6d5252ee93f62ae55fbbbddbf8
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -300,6 +315,7 @@
     <Compile Include="Repositories\AssessmentsQuestionsRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\OportunitiesRepository.cs" />
+    <Compile Include="Repositories\SkillsRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

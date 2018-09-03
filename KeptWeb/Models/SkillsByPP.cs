@@ -12,12 +12,13 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogins
+    public partial class SkillsByPP
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
+        public int SkillId { get; set; }
+        public long PPId { get; set; }
+        public string Description { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual PerformanceProfile PerformanceProfile { get; set; }
+        public virtual Skills Skills { get; set; }
     }
 }
