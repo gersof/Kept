@@ -18,8 +18,11 @@ namespace KeptWeb.Models
         public Employee()
         {
             this.AssessmentTestResults = new HashSet<AssessmentTestResults>();
+            this.ActionItems = new HashSet<ActionItems>();
             this.Employee1 = new HashSet<Employee>();
+            this.OportunitiesOfImprovement = new HashSet<OportunitiesOfImprovement>();
             this.PerformanceProfile = new HashSet<PerformanceProfile>();
+            this.Strengths = new HashSet<Strengths>();
         }
     
         public string DocumentId { get; set; }
@@ -34,10 +37,16 @@ namespace KeptWeb.Models
         public virtual ICollection<AssessmentTestResults> AssessmentTestResults { get; set; }
         public virtual DeliveryUnits DeliveryUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActionItems> ActionItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee1 { get; set; }
         public virtual Employee Employee2 { get; set; }
         public virtual Grades Grades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OportunitiesOfImprovement> OportunitiesOfImprovement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PerformanceProfile> PerformanceProfile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Strengths> Strengths { get; set; }
     }
 }

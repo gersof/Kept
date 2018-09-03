@@ -187,7 +187,12 @@ namespace KeptWeb.Controllers
 		[AllowAnonymous]
 		public ActionResult RegisterRoles()
 		{
-			return View();
+			var viewModel = new RegisterRoleViewModel
+			{
+				Employees = _context.Employee.ToList(),
+				Roles = _context.AspNetRoles.ToList()
+			};
+			return View(viewModel);
 		}
 
 		// POST: /Account/Register

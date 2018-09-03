@@ -99,6 +99,9 @@ namespace KeptWeb.Models
 		[Display(Name = "Rol")]
 		public string RoleId { get; set; }
 
+		public IList<Employee> Employees { get; set; }
+		public IList<AspNetRoles> Roles { get; set; }
+
 	}
 
 	public class ResetPasswordViewModel

@@ -12,14 +12,15 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Strengths
+    public partial class ActionItems
     {
-        public long StrenghId { get; set; }
-        public long CAndPId { get; set; }
+        public long ActionItemId { get; set; }
         public string Description { get; set; }
+        public System.DateTime DueDate { get; set; }
+        public string PostActionUpdate { get; set; }
         public string EmployeeDocumentId { get; set; }
+        public bool Completed { get; set; }
     
-        public virtual CompetencyAndPerformance CompetencyAndPerformance { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

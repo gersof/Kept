@@ -12,14 +12,13 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Strengths
+    public partial class SkillsByPP
     {
-        public long StrenghId { get; set; }
-        public long CAndPId { get; set; }
+        public int SkillId { get; set; }
+        public long PPId { get; set; }
         public string Description { get; set; }
-        public string EmployeeDocumentId { get; set; }
     
-        public virtual CompetencyAndPerformance CompetencyAndPerformance { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual PerformanceProfile PerformanceProfile { get; set; }
+        public virtual Skills Skills { get; set; }
     }
 }
