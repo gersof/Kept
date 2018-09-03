@@ -1,0 +1,68 @@
+﻿@model KeptWeb.Models.OOIandAI
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+	<head>
+		<style>
+			table, th, td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			th {
+				background-color: black;
+				color: white
+			}
+
+			th, td {
+				padding: 15px;
+				text-align: center;
+			}
+			td#tdLeft{
+				text-align:left;
+				padding: 15px;
+			}
+			table#tableMain {
+				width: 100%;
+				background-color: white;
+			}
+		</style>
+	</head>
+    <body>
+        <h2>Opportunities of Improvement</h2>
+        <table id="tableMain">
+            <tr>
+                <th width="100%">Description</th>
+            </tr>
+            @foreach (var ooi in Model.Oportunities)
+            {
+                <tr>
+                    <td id="tdLeft">@ooi.Description</td>
+                </tr>
+            }
+        </table>
+        <h2>Action Items</h2>
+        <table id="tableMain">
+            <tr>
+                <th width="40%">Action Item</th>
+                <th width="10%">Due Date</th>
+                <th width="40%">Post Action Update</th>
+                <th width="10%">Completed</th>
+            </tr>
+            @foreach (var ai in Model.ActionItems)
+            {
+                <tr>
+                    <td id="tdLeft">@ai.Description</td>
+                    <td id="tdLeft">@ai.DueDate.ToShortDateString()</td>
+                    <td id="tdLeft">@ai.PostActionUpdate</td>
+                    <td id="tdLeft">@ai.Completed</td>
+                </tr>
+            }
+
+        </table>
+    </body>
+</html>
+
+

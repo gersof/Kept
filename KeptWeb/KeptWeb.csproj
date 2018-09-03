@@ -213,7 +213,7 @@
     <Compile Include="Controllers\AssessmentTestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OpportunitiesImprovementController.cs" />
+    <Compile Include="Controllers\OOIandAIController.cs" />
     <Compile Include="Controllers\PerformanceProfileController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\StrengthsController.cs" />
@@ -279,6 +279,7 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OOIandAI.cs" />
     <Compile Include="Models\Oportunities.cs" />
     <Compile Include="Models\OportunitiesOfImprovement.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
@@ -393,7 +394,7 @@
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Trainings\Index.cshtml" />
     <Content Include="Views\Performanceprofile\Index.cshtml" />
-    <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
+    <Content Include="Views\OOIandAI\Index.cshtml" />
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
     <Content Include="Views\Account\RegisterRoles.cshtml" />
