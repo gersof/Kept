@@ -10,12 +10,14 @@
     <br />
     @foreach (var item in Model)
     {
-        <div class="panel panel-primary">
+        <div class="panel panel-warning">
             <div class="panel-heading" role="tab" id="@("Item_"+item.CAndPId)">
-                <h4 class="panel-title">
+                <h4 class="panel-title"  >
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="@("#collapseItem_"+item.CAndPId)" aria-expanded="false" aria-controls="@("collapseItem_"+item.CAndPId)">
                         @item.Name
                     </a>
+                    <span class="badge" id="@("total_"+item.CAndPId)">0</span>  / <span class="badge">@item.AssessmentTestsQuestions.Count</span>
+
                 </h4>
             </div>
             <div id="@("collapseItem_"+item.CAndPId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@("Item_"+item.CAndPId)">
@@ -36,12 +38,10 @@
                             <div class="col-md-5">
                                 <div class="input-group">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default" aria-label="Bold"><span class="glyphicon glyphicon-ok"></span></button>
-                                        <button type="button" class="btn btn-default" aria-label="Italic"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button type="button" class="btn btn-default yesbtnclass" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button type="button" class="btn btn-default nobtnclass" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
                                     <input type="text" class="form-control" aria-label="...">
-
-                                    <button type="button" class="btn btn-default" aria-label="Bold"><span class="glyphicon glyphicon-save"></span></button>
                                 </div>
 
                             </div>
@@ -51,89 +51,7 @@
                 </div>
             </div>
         </div>
-    }
-    @*<div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="CustumerManagement">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCustumerManagement" aria-expanded="true" aria-controls="collapseCustumerManagement">
-                        Custumer Management
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseCustumerManagement" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="CustumerManagement">
-                <div class="panel-body">
-                    Custumer Management body
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="Flexibility">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFlexibility" aria-expanded="false" aria-controls="collapseFlexibility">
-                        Flexibility
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseFlexibility" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Flexibility">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="TeamWork">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTeamWork" aria-expanded="false" aria-controls="collapseTeamWork">
-                        Team Work
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTeamWork" class="panel-collapse collapse" role="tabpanel" aria-labelledby="TeamWork">
-                <div class="panel-body">
-                    Team work body
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="ResultOrientation">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseResultOrientation" aria-expanded="false" aria-controls="collapseResultOrientation">
-                        Result Orientation
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseResultOrientation" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ResultOrientation">
-                <div class="panel-body">
-                    Result Orientation body
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="Leadership">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLeadership" aria-expanded="false" aria-controls="collapseLeadership">
-                        Leadership
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseLeadership" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Leadership">
-                <div class="panel-body">
-                    Leadership Body
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="LearningCapabilities">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLearningCapabilities" aria-expanded="false" aria-controls="collapseLearningCapabilities">
-                        Learning Capabilities
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseLearningCapabilities" class="panel-collapse collapse" role="tabpanel" aria-labelledby="LearningCapabilities">
-                <div class="panel-body">
-                    Learning Capabilities Body
-                </div>
-            </div>
-        </div>*@
+    }   
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+<script src="~/Scripts/appjs/AssessmentTests.js"></script>
