@@ -9,6 +9,7 @@ namespace KeptWeb.Controllers
     public class PerformanceprofileController : Controller
     {
         // GET: Performanceprofile
+        [Authorize]
         public ActionResult Index()
         {
             return View();
