@@ -40,6 +40,7 @@ namespace KeptWeb.Models
         public virtual DbSet<OportunitiesOfImprovement> OportunitiesOfImprovement { get; set; }
         public virtual DbSet<PerformanceProfile> PerformanceProfile { get; set; }
         public virtual DbSet<Skills> Skills { get; set; }
+        public virtual DbSet<Strengths> Strengths { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Trainnings> Trainnings { get; set; }
         public virtual DbSet<TrainningsByPP> TrainningsByPP { get; set; }

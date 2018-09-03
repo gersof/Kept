@@ -25,6 +25,10 @@ namespace KeptWeb.Models
         public long PPId { get; set; }
         public long EmployeeCC { get; set; }
         public string PictureURL { get; set; }
+        public Nullable<int> TeamScore { get; set; }
+        public Nullable<int> ClientScore { get; set; }
+        public Nullable<int> ProjectScore { get; set; }
+        public Nullable<int> CompanyScore { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAndPByPP> CAndPByPP { get; set; }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using KeptWeb.Models;
+﻿using KeptWeb.Models;
 using KeptWeb.Repositories;
-using Newtonsoft.Json;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace KeptWeb.Controllers
 {
@@ -30,18 +26,12 @@ namespace KeptWeb.Controllers
 		[HttpGet]
 		public ActionResult GetAssessment()
 		{
+			var userID = User.Identity.GetUserId();
 			var AssessmentsQuestions = _assessment.GetAssessments();
-
-			var list = JsonConvert.SerializeObject(AssessmentsQuestions,
-						 Formatting.None,
-						 new JsonSerializerSettings()
-						 {
-							 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-						 });
-
-			return Content(list, "application/json");
-
+			return View(AssessmentsQuestions);
 		}
+
+
 	}
 
 }
