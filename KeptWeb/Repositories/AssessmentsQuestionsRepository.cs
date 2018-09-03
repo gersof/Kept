@@ -16,7 +16,8 @@ namespace KeptWeb.Repositories
 		{
 			var assessmentQuestions = new List<AssessmentQuestions>();
 			var competencies = _context.CompetencyAndPerformance.ToList();
-			foreach (var comp in competencies) {
+			foreach (var comp in competencies)
+			{
 				var questions = _context.AssessmentTestQuestions.Where(q => q.CAndPId == comp.CAndPId).ToList();
 				var assessmentQuestion = new AssessmentQuestions
 				{
@@ -30,10 +31,19 @@ namespace KeptWeb.Repositories
 			}
 			return assessmentQuestions;
 		}
-		public void CreateAssessment(AssessmentTestResults assessment)
+
+		public bool CreateAssessment(AssessmentTestResults assessment)
 		{
-			_context.AssessmentTestResults.Add(assessment);
-			_context.SaveChanges();
+			try
+			{
+				_context.AssessmentTestResults.Add(assessment);
+				_context.SaveChanges();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+
 		}
 	}
-}
