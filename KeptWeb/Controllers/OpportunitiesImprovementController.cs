@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace KeptWeb.Controllers
 {
-    public class OportunitiesImprovementController : Controller
+    public class OpportunitiesImprovementController : Controller
     {
         // GET: OportunitiesImprovement
         [Authorize]
