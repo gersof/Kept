@@ -13,6 +13,27 @@ $(document).ready(function () {
         SetAnswer(attrIdQuestion, attrCAndPId, 0);
         $(this).removeClass("btn-default").addClass("btn-danger");
     });
+
+    $("#SaveData").click(function () {
+        $.post({
+            url: "http://localhost:58425/AssessmentTests/CreateAssessment",
+            data: JSON.stringify({ assessment: dataAssesstment }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+        }, function () {
+        })
+            .done(function () {
+                swal("Good job!", "Assesstment is saved!", "success", {
+                    button: "Ok",
+                });            })
+            .fail(function () {
+                swal("Something went wrong!", "Assesstment NOT save!", "error", {
+                    button: "Ok",
+                });
+            });
+    });
 });
 
 function SetAnswer(attrIdQuestion, attrCAndPId, SelfScore, SelfComments) {
@@ -21,6 +42,7 @@ function SetAnswer(attrIdQuestion, attrCAndPId, SelfScore, SelfComments) {
     record.SelfScore = SelfScore;
     record.SelfComments = SelfComments;
     record.attrCAndPId = attrCAndPId;
+   // record.Score = 0;
     let search = dataAssesstment.filter((x) => {
         return x.QuestionId === attrIdQuestion;
     });
@@ -42,7 +64,7 @@ function getNewItem() {
         "EmployeeDocumentId": "",
         "SelfScore": 0,
         "SelfComments": "",
-        "attrCAndPId":0
+        "attrCAndPId": 0
     };
 }
 
