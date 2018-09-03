@@ -9,6 +9,7 @@ namespace KeptWeb.Controllers
     public class StrengthsController : Controller
     {
         // GET: Strenghts
+        [Authorize]
         public ActionResult Index()
         {
             return View();
