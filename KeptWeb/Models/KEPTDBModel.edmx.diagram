@@ -4,31 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="047d5b979d8f4fa2b5a9e12237305dc3" Name="Diagram1">
-        <EntityTypeShape EntityType="KEPT_DBModel.AssessmentTestQuestions" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.AssessmentTestResults" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.CAndPByPP" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.CompetencyAndPerformance" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.DeliveryUnits" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.Employee" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.Grades" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.OportunitiesOfImprovement" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.PerformanceProfile" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.Skills" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.Trainnings" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="KEPT_DBModel.TrainningsByPP" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
-        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestResults_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_Employee_DeliveryUnits" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_Employee_Grades" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_PerformanceProfile_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.FK_TrainningsByPP_Trainnings" ManuallyRouted="false" />
-        <AssociationConnector Association="KEPT_DBModel.SkillsByPP" ManuallyRouted="false" />
+      <Diagram DiagramId="047d5b979d8f4fa2b5a9e12237305dc3" Name="Diagram1" ZoomLevel="37">
+        <EntityTypeShape EntityType="KEPT_DBModel.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AspNetRoles" Width="1.5" PointX="9.75" PointY="2.5" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AspNetUserClaims" Width="1.5" PointX="14.25" PointY="1" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AspNetUserLogins" Width="1.5" PointX="14.25" PointY="3.75" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AspNetUsers" Width="1.5" PointX="12" PointY="1.375" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AssessmentTestQuestions" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="KEPT_DBModel.AssessmentTestResults" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="KEPT_DBModel.CAndPByPP" Width="1.5" PointX="7.5" PointY="6.375" />
+        <EntityTypeShape EntityType="KEPT_DBModel.CompetencyAndPerformance" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="KEPT_DBModel.DeliveryUnits" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="KEPT_DBModel.Employee" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="KEPT_DBModel.Grades" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="KEPT_DBModel.OportunitiesOfImprovement" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="KEPT_DBModel.PerformanceProfile" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="KEPT_DBModel.Skills" Width="1.5" PointX="7.5" PointY="15.375" />
+        <EntityTypeShape EntityType="KEPT_DBModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KEPT_DBModel.Trainnings" Width="1.5" PointX="5.25" PointY="13.375" />
+        <EntityTypeShape EntityType="KEPT_DBModel.TrainningsByPP" Width="1.5" PointX="7.5" PointY="9.375" />
+        <AssociationConnector Association="KEPT_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="KEPT_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance" />
+        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" />
+        <AssociationConnector Association="KEPT_DBModel.FK_AssessmentTestResults_Employee" />
+        <AssociationConnector Association="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance" />
+        <AssociationConnector Association="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" />
+        <AssociationConnector Association="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance" />
+        <AssociationConnector Association="KEPT_DBModel.FK_Employee_DeliveryUnits" />
+        <AssociationConnector Association="KEPT_DBModel.FK_Employee_Grades" />
+        <AssociationConnector Association="KEPT_DBModel.FK_PerformanceProfile_Employee" />
+        <AssociationConnector Association="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" />
+        <AssociationConnector Association="KEPT_DBModel.FK_TrainningsByPP_Trainnings" />
+        <AssociationConnector Association="KEPT_DBModel.AspNetUserRoles" />
+        <AssociationConnector Association="KEPT_DBModel.SkillsByPP" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

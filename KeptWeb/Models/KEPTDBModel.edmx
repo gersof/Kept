@@ -4,7 +4,68 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KEPT_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KEPT_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="AssessmentTestQuestions">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -22,10 +83,8 @@
           <Property Name="QuestionId" Type="bigint" Nullable="false" />
           <Property Name="Score" Type="real" Nullable="false" />
           <Property Name="EmployeeCC" Type="bigint" Nullable="false" />
-          <Property Name="SelfScore" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="LeadScore" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="SelfComments" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="LeadComments" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SelfScore" Type="real" Nullable="false" />
+          <Property Name="SelfComments" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="CAndPByPP">
           <Key>
@@ -76,9 +135,9 @@
             <PropertyRef Name="OOIId" />
           </Key>
           <Property Name="OOIId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CAndPId" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Completed" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CAndPId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
           <Property Name="GoalDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PerformanceProfile">
@@ -94,8 +153,8 @@
             <PropertyRef Name="SkillId" />
           </Key>
           <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" />
-          <Property Name="Description" Type="nchar" MaxLength="10" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="SkillsByPP">
           <Key>
@@ -120,10 +179,10 @@
             <PropertyRef Name="TrainningId" />
           </Key>
           <Property Name="TrainningId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Room" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Hours" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Room" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hours" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TrainningsByPP">
           <Key>
@@ -195,6 +254,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_DeliveryUnits">
           <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -216,6 +331,18 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="GradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunitiesOfImprovement_CompetencyAndPerformance">
+          <End Role="CompetencyAndPerformance" Type="Self.CompetencyAndPerformance" Multiplicity="1" />
+          <End Role="OportunitiesOfImprovement" Type="Self.OportunitiesOfImprovement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetencyAndPerformance">
+              <PropertyRef Name="CAndPId" />
+            </Principal>
+            <Dependent Role="OportunitiesOfImprovement">
+              <PropertyRef Name="CAndPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -280,6 +407,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KEPT_DBModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssessmentTestQuestions" EntityType="Self.AssessmentTestQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssessmentTestResults" EntityType="Self.AssessmentTestResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAndPByPP" EntityType="Self.CAndPByPP" Schema="dbo" store:Type="Tables" />
@@ -314,6 +447,22 @@
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
             <End Role="CAndPByPP" EntitySet="CAndPByPP" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_DeliveryUnits" Association="Self.FK_Employee_DeliveryUnits">
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
@@ -321,6 +470,10 @@
           <AssociationSet Name="FK_Employee_Grades" Association="Self.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunitiesOfImprovement_CompetencyAndPerformance" Association="Self.FK_OportunitiesOfImprovement_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
           </AssociationSet>
           <AssociationSet Name="FK_PerformanceProfile_Employee" Association="Self.FK_PerformanceProfile_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -343,20 +496,158 @@
             <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KEPT_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KEPT_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="KEPT_DBModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="KEPT_DBModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="KEPT_DBModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="KEPT_DBModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="KEPT_DBModel.AspNetUsers" />
+          <EntitySet Name="AssessmentTestQuestions" EntityType="KEPT_DBModel.AssessmentTestQuestions" />
+          <EntitySet Name="AssessmentTestResults" EntityType="KEPT_DBModel.AssessmentTestResults" />
+          <EntitySet Name="CAndPByPP" EntityType="KEPT_DBModel.CAndPByPP" />
+          <EntitySet Name="CompetencyAndPerformance" EntityType="KEPT_DBModel.CompetencyAndPerformance" />
+          <EntitySet Name="DeliveryUnits" EntityType="KEPT_DBModel.DeliveryUnits" />
+          <EntitySet Name="Employee" EntityType="KEPT_DBModel.Employee" />
+          <EntitySet Name="Grades" EntityType="KEPT_DBModel.Grades" />
+          <EntitySet Name="OportunitiesOfImprovement" EntityType="KEPT_DBModel.OportunitiesOfImprovement" />
+          <EntitySet Name="PerformanceProfile" EntityType="KEPT_DBModel.PerformanceProfile" />
+          <EntitySet Name="Skills" EntityType="KEPT_DBModel.Skills" />
+          <EntitySet Name="sysdiagrams" EntityType="KEPT_DBModel.sysdiagrams" />
+          <EntitySet Name="Trainnings" EntityType="KEPT_DBModel.Trainnings" />
+          <EntitySet Name="TrainningsByPP" EntityType="KEPT_DBModel.TrainningsByPP" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="KEPT_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="KEPT_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentTestQuestions_CompetencyAndPerformance" Association="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="AssessmentTestQuestions" EntitySet="AssessmentTestQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentTestResults_AssessmentTestQuestions" Association="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions">
+            <End Role="AssessmentTestQuestions" EntitySet="AssessmentTestQuestions" />
+            <End Role="AssessmentTestResults" EntitySet="AssessmentTestResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentTestResults_Employee" Association="KEPT_DBModel.FK_AssessmentTestResults_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="AssessmentTestResults" EntitySet="AssessmentTestResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAndPByPP_CompetencyAndPerformance" Association="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="CAndPByPP" EntitySet="CAndPByPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAndPByPP_PerformanceProfile" Association="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile">
+            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+            <End Role="CAndPByPP" EntitySet="CAndPByPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunitiesOfImprovement_CompetencyAndPerformance" Association="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_DeliveryUnits" Association="KEPT_DBModel.FK_Employee_DeliveryUnits">
+            <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Grades" Association="KEPT_DBModel.FK_Employee_Grades">
+            <End Role="Grades" EntitySet="Grades" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerformanceProfile_Employee" Association="KEPT_DBModel.FK_PerformanceProfile_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrainningsByPP_PerformanceProfile" Association="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile">
+            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+            <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrainningsByPP_Trainnings" Association="KEPT_DBModel.FK_TrainningsByPP_Trainnings">
+            <End Role="Trainnings" EntitySet="Trainnings" />
+            <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="KEPT_DBModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="SkillsByPP" Association="KEPT_DBModel.SkillsByPP">
+            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="KEPT_DBModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="KEPT_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="KEPT_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="KEPT_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="KEPT_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="KEPT_DBModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
         <EntityType Name="AssessmentTestQuestions">
           <Key>
             <PropertyRef Name="QuestionId" />
           </Key>
           <Property Name="QuestionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionText" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CAndPId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="CompetencyAndPerformance" Relationship="Self.FK_AssessmentTestQuestions_CompetencyAndPerformance" FromRole="AssessmentTestQuestions" ToRole="CompetencyAndPerformance" />
-          <NavigationProperty Name="AssessmentTestResults" Relationship="Self.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestQuestions" ToRole="AssessmentTestResults" />
+          <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance" FromRole="AssessmentTestQuestions" ToRole="CompetencyAndPerformance" />
+          <NavigationProperty Name="AssessmentTestResults" Relationship="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestQuestions" ToRole="AssessmentTestResults" />
         </EntityType>
         <EntityType Name="AssessmentTestResults">
           <Key>
@@ -367,12 +658,10 @@
           <Property Name="QuestionId" Type="Int64" Nullable="false" />
           <Property Name="Score" Type="Single" Nullable="false" />
           <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
-          <Property Name="SelfScore" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="LeadScore" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="SelfComments" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="LeadComments" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AssessmentTestQuestions" Relationship="Self.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestResults" ToRole="AssessmentTestQuestions" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_AssessmentTestResults_Employee" FromRole="AssessmentTestResults" ToRole="Employee" />
+          <Property Name="SelfScore" Type="Single" Nullable="false" />
+          <Property Name="SelfComments" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentTestQuestions" Relationship="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestResults" ToRole="AssessmentTestQuestions" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_AssessmentTestResults_Employee" FromRole="AssessmentTestResults" ToRole="Employee" />
         </EntityType>
         <EntityType Name="CAndPByPP">
           <Key>
@@ -383,60 +672,62 @@
           <Property Name="CoPId" Type="Int64" Nullable="false" />
           <Property Name="AchievementPorcentage" Type="Int32" Nullable="false" />
           <Property Name="AssessmentCompleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CompetencyAndPerformance" Relationship="Self.FK_CAndPByPP_CompetencyAndPerformance" FromRole="CAndPByPP" ToRole="CompetencyAndPerformance" />
-          <NavigationProperty Name="PerformanceProfile" Relationship="Self.FK_CAndPByPP_PerformanceProfile" FromRole="CAndPByPP" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance" FromRole="CAndPByPP" ToRole="CompetencyAndPerformance" />
+          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" FromRole="CAndPByPP" ToRole="PerformanceProfile" />
         </EntityType>
         <EntityType Name="CompetencyAndPerformance">
           <Key>
             <PropertyRef Name="CAndPId" />
           </Key>
           <Property Name="CAndPId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="IsCompetency" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AssessmentTestQuestions" Relationship="Self.FK_AssessmentTestQuestions_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="AssessmentTestQuestions" />
-          <NavigationProperty Name="CAndPByPP" Relationship="Self.FK_CAndPByPP_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="CAndPByPP" />
+          <NavigationProperty Name="AssessmentTestQuestions" Relationship="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="AssessmentTestQuestions" />
+          <NavigationProperty Name="CAndPByPP" Relationship="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="CAndPByPP" />
+          <NavigationProperty Name="OportunitiesOfImprovement" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="OportunitiesOfImprovement" />
         </EntityType>
         <EntityType Name="DeliveryUnits">
           <Key>
             <PropertyRef Name="DUId" />
           </Key>
           <Property Name="DUId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_DeliveryUnits" FromRole="DeliveryUnits" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="DeliveryUnits" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="CC" />
           </Key>
           <Property Name="CC" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DeliveryUnitId" Type="Int32" Nullable="false" />
           <Property Name="GradeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssessmentTestResults" Relationship="Self.FK_AssessmentTestResults_Employee" FromRole="Employee" ToRole="AssessmentTestResults" />
-          <NavigationProperty Name="DeliveryUnits" Relationship="Self.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
-          <NavigationProperty Name="Grades" Relationship="Self.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
-          <NavigationProperty Name="PerformanceProfile" Relationship="Self.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="AssessmentTestResults" Relationship="KEPT_DBModel.FK_AssessmentTestResults_Employee" FromRole="Employee" ToRole="AssessmentTestResults" />
+          <NavigationProperty Name="DeliveryUnits" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
+          <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
+          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
             <PropertyRef Name="GradeId" />
           </Key>
           <Property Name="GradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Grades" FromRole="Grades" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Grades" ToRole="Employee" />
         </EntityType>
         <EntityType Name="OportunitiesOfImprovement">
           <Key>
             <PropertyRef Name="OOIId" />
           </Key>
           <Property Name="OOIId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CAndPId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Completed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CAndPId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
           <Property Name="GoalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance" FromRole="OportunitiesOfImprovement" ToRole="CompetencyAndPerformance" />
         </EntityType>
         <EntityType Name="PerformanceProfile">
           <Key>
@@ -445,25 +736,25 @@
           <Property Name="PPId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
           <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CAndPByPP" Relationship="Self.FK_CAndPByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="CAndPByPP" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_PerformanceProfile_Employee" FromRole="PerformanceProfile" ToRole="Employee" />
-          <NavigationProperty Name="TrainningsByPP" Relationship="Self.FK_TrainningsByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="TrainningsByPP" />
-          <NavigationProperty Name="Skills" Relationship="Self.SkillsByPP" FromRole="PerformanceProfile" ToRole="Skills" />
+          <NavigationProperty Name="CAndPByPP" Relationship="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="CAndPByPP" />
+          <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="PerformanceProfile" ToRole="Employee" />
+          <NavigationProperty Name="TrainningsByPP" Relationship="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="TrainningsByPP" />
+          <NavigationProperty Name="Skills" Relationship="KEPT_DBModel.SkillsByPP" FromRole="PerformanceProfile" ToRole="Skills" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
             <PropertyRef Name="SkillId" />
           </Key>
           <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="PerformanceProfile" Relationship="Self.SkillsByPP" FromRole="Skills" ToRole="PerformanceProfile" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.SkillsByPP" FromRole="Skills" ToRole="PerformanceProfile" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -474,11 +765,11 @@
             <PropertyRef Name="TrainningId" />
           </Key>
           <Property Name="TrainningId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Room" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Hours" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TrainningsByPP" Relationship="Self.FK_TrainningsByPP_Trainnings" FromRole="Trainnings" ToRole="TrainningsByPP" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Room" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TrainningsByPP" Relationship="KEPT_DBModel.FK_TrainningsByPP_Trainnings" FromRole="Trainnings" ToRole="TrainningsByPP" />
         </EntityType>
         <EntityType Name="TrainningsByPP">
           <Key>
@@ -489,12 +780,40 @@
           <Property Name="PPId" Type="Int64" Nullable="false" />
           <Property Name="AsistancePorcentage" Type="Single" />
           <Property Name="Certified" Type="Boolean" />
-          <NavigationProperty Name="PerformanceProfile" Relationship="Self.FK_TrainningsByPP_PerformanceProfile" FromRole="TrainningsByPP" ToRole="PerformanceProfile" />
-          <NavigationProperty Name="Trainnings" Relationship="Self.FK_TrainningsByPP_Trainnings" FromRole="TrainningsByPP" ToRole="Trainnings" />
+          <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" FromRole="TrainningsByPP" ToRole="PerformanceProfile" />
+          <NavigationProperty Name="Trainnings" Relationship="KEPT_DBModel.FK_TrainningsByPP_Trainnings" FromRole="TrainningsByPP" ToRole="Trainnings" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="KEPT_DBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="KEPT_DBModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="KEPT_DBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="KEPT_DBModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssessmentTestQuestions_CompetencyAndPerformance">
-          <End Role="CompetencyAndPerformance" Type="Self.CompetencyAndPerformance" Multiplicity="1" />
-          <End Role="AssessmentTestQuestions" Type="Self.AssessmentTestQuestions" Multiplicity="*" />
+          <End Type="KEPT_DBModel.CompetencyAndPerformance" Role="CompetencyAndPerformance" Multiplicity="1" />
+          <End Type="KEPT_DBModel.AssessmentTestQuestions" Role="AssessmentTestQuestions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CompetencyAndPerformance">
               <PropertyRef Name="CAndPId" />
@@ -505,8 +824,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssessmentTestResults_AssessmentTestQuestions">
-          <End Role="AssessmentTestQuestions" Type="Self.AssessmentTestQuestions" Multiplicity="1" />
-          <End Role="AssessmentTestResults" Type="Self.AssessmentTestResults" Multiplicity="*" />
+          <End Type="KEPT_DBModel.AssessmentTestQuestions" Role="AssessmentTestQuestions" Multiplicity="1" />
+          <End Type="KEPT_DBModel.AssessmentTestResults" Role="AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssessmentTestQuestions">
               <PropertyRef Name="QuestionId" />
@@ -517,8 +836,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssessmentTestResults_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="AssessmentTestResults" Type="Self.AssessmentTestResults" Multiplicity="*" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="KEPT_DBModel.AssessmentTestResults" Role="AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="CC" />
@@ -529,8 +848,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CAndPByPP_CompetencyAndPerformance">
-          <End Role="CompetencyAndPerformance" Type="Self.CompetencyAndPerformance" Multiplicity="1" />
-          <End Role="CAndPByPP" Type="Self.CAndPByPP" Multiplicity="*" />
+          <End Type="KEPT_DBModel.CompetencyAndPerformance" Role="CompetencyAndPerformance" Multiplicity="1" />
+          <End Type="KEPT_DBModel.CAndPByPP" Role="CAndPByPP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CompetencyAndPerformance">
               <PropertyRef Name="CAndPId" />
@@ -541,8 +860,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CAndPByPP_PerformanceProfile">
-          <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="1" />
-          <End Role="CAndPByPP" Type="Self.CAndPByPP" Multiplicity="*" />
+          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="1" />
+          <End Type="KEPT_DBModel.CAndPByPP" Role="CAndPByPP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PerformanceProfile">
               <PropertyRef Name="PPId" />
@@ -552,9 +871,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OportunitiesOfImprovement_CompetencyAndPerformance">
+          <End Type="KEPT_DBModel.CompetencyAndPerformance" Role="CompetencyAndPerformance" Multiplicity="1" />
+          <End Type="KEPT_DBModel.OportunitiesOfImprovement" Role="OportunitiesOfImprovement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetencyAndPerformance">
+              <PropertyRef Name="CAndPId" />
+            </Principal>
+            <Dependent Role="OportunitiesOfImprovement">
+              <PropertyRef Name="CAndPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_DeliveryUnits">
-          <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Type="KEPT_DBModel.DeliveryUnits" Role="DeliveryUnits" Multiplicity="1" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryUnits">
               <PropertyRef Name="DUId" />
@@ -565,8 +896,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Grades">
-          <End Role="Grades" Type="Self.Grades" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Type="KEPT_DBModel.Grades" Role="Grades" Multiplicity="1" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grades">
               <PropertyRef Name="GradeId" />
@@ -577,8 +908,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PerformanceProfile_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="*" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="CC" />
@@ -589,8 +920,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainningsByPP_PerformanceProfile">
-          <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="1" />
-          <End Role="TrainningsByPP" Type="Self.TrainningsByPP" Multiplicity="*" />
+          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="1" />
+          <End Type="KEPT_DBModel.TrainningsByPP" Role="TrainningsByPP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PerformanceProfile">
               <PropertyRef Name="PPId" />
@@ -601,8 +932,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainningsByPP_Trainnings">
-          <End Role="Trainnings" Type="Self.Trainnings" Multiplicity="1" />
-          <End Role="TrainningsByPP" Type="Self.TrainningsByPP" Multiplicity="*" />
+          <End Type="KEPT_DBModel.Trainnings" Role="Trainnings" Multiplicity="1" />
+          <End Type="KEPT_DBModel.TrainningsByPP" Role="TrainningsByPP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trainnings">
               <PropertyRef Name="TrainningId" />
@@ -612,214 +943,220 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SkillsByPP">
-          <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="*" />
-          <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+        <Association Name="AspNetUserRoles">
+          <End Type="KEPT_DBModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="KEPT_DBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="KEPT_DBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AssessmentTestQuestions" EntityType="Self.AssessmentTestQuestions" />
-          <EntitySet Name="AssessmentTestResults" EntityType="Self.AssessmentTestResults" />
-          <EntitySet Name="CAndPByPP" EntityType="Self.CAndPByPP" />
-          <EntitySet Name="CompetencyAndPerformance" EntityType="Self.CompetencyAndPerformance" />
-          <EntitySet Name="DeliveryUnits" EntityType="Self.DeliveryUnits" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="Grades" EntityType="Self.Grades" />
-          <EntitySet Name="OportunitiesOfImprovement" EntityType="Self.OportunitiesOfImprovement" />
-          <EntitySet Name="PerformanceProfile" EntityType="Self.PerformanceProfile" />
-          <EntitySet Name="Skills" EntityType="Self.Skills" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Trainnings" EntityType="Self.Trainnings" />
-          <EntitySet Name="TrainningsByPP" EntityType="Self.TrainningsByPP" />
-          <AssociationSet Name="FK_AssessmentTestQuestions_CompetencyAndPerformance" Association="Self.FK_AssessmentTestQuestions_CompetencyAndPerformance">
-            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
-            <End Role="AssessmentTestQuestions" EntitySet="AssessmentTestQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssessmentTestResults_AssessmentTestQuestions" Association="Self.FK_AssessmentTestResults_AssessmentTestQuestions">
-            <End Role="AssessmentTestQuestions" EntitySet="AssessmentTestQuestions" />
-            <End Role="AssessmentTestResults" EntitySet="AssessmentTestResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssessmentTestResults_Employee" Association="Self.FK_AssessmentTestResults_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="AssessmentTestResults" EntitySet="AssessmentTestResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CAndPByPP_CompetencyAndPerformance" Association="Self.FK_CAndPByPP_CompetencyAndPerformance">
-            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
-            <End Role="CAndPByPP" EntitySet="CAndPByPP" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CAndPByPP_PerformanceProfile" Association="Self.FK_CAndPByPP_PerformanceProfile">
-            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
-            <End Role="CAndPByPP" EntitySet="CAndPByPP" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_DeliveryUnits" Association="Self.FK_Employee_DeliveryUnits">
-            <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Grades" Association="Self.FK_Employee_Grades">
-            <End Role="Grades" EntitySet="Grades" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PerformanceProfile_Employee" Association="Self.FK_PerformanceProfile_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainningsByPP_PerformanceProfile" Association="Self.FK_TrainningsByPP_PerformanceProfile">
-            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
-            <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainningsByPP_Trainnings" Association="Self.FK_TrainningsByPP_Trainnings">
-            <End Role="Trainnings" EntitySet="Trainnings" />
-            <End Role="TrainningsByPP" EntitySet="TrainningsByPP" />
-          </AssociationSet>
-          <AssociationSet Name="SkillsByPP" Association="Self.SkillsByPP">
-            <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
-            <End Role="Skills" EntitySet="Skills" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <Association Name="SkillsByPP">
+          <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
+          <End Type="KEPT_DBModel.Skills" Role="Skills" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KEPT_DBModelStoreContainer" CdmEntityContainer="KEPT_DBEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="KEPT_DBModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="KEPT_DBModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="KEPT_DBModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="KEPT_DBModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="KEPT_DBModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AssessmentTestQuestions">
             <EntityTypeMapping TypeName="KEPT_DBModel.AssessmentTestQuestions">
               <MappingFragment StoreEntitySet="AssessmentTestQuestions">
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
                 <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssessmentTestResults">
             <EntityTypeMapping TypeName="KEPT_DBModel.AssessmentTestResults">
               <MappingFragment StoreEntitySet="AssessmentTestResults">
-                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
-                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="Score" ColumnName="Score" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
-                <ScalarProperty Name="SelfScore" ColumnName="SelfScore" />
-                <ScalarProperty Name="LeadScore" ColumnName="LeadScore" />
                 <ScalarProperty Name="SelfComments" ColumnName="SelfComments" />
-                <ScalarProperty Name="LeadComments" ColumnName="LeadComments" />
+                <ScalarProperty Name="SelfScore" ColumnName="SelfScore" />
+                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAndPByPP">
             <EntityTypeMapping TypeName="KEPT_DBModel.CAndPByPP">
               <MappingFragment StoreEntitySet="CAndPByPP">
-                <ScalarProperty Name="PPId" ColumnName="PPId" />
-                <ScalarProperty Name="CoPId" ColumnName="CoPId" />
-                <ScalarProperty Name="AchievementPorcentage" ColumnName="AchievementPorcentage" />
                 <ScalarProperty Name="AssessmentCompleted" ColumnName="AssessmentCompleted" />
+                <ScalarProperty Name="AchievementPorcentage" ColumnName="AchievementPorcentage" />
+                <ScalarProperty Name="CoPId" ColumnName="CoPId" />
+                <ScalarProperty Name="PPId" ColumnName="PPId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CompetencyAndPerformance">
             <EntityTypeMapping TypeName="KEPT_DBModel.CompetencyAndPerformance">
               <MappingFragment StoreEntitySet="CompetencyAndPerformance">
-                <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsCompetency" ColumnName="IsCompetency" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeliveryUnits">
             <EntityTypeMapping TypeName="KEPT_DBModel.DeliveryUnits">
               <MappingFragment StoreEntitySet="DeliveryUnits">
-                <ScalarProperty Name="DUId" ColumnName="DUId" />
-                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="DUId" ColumnName="DUId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="KEPT_DBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="CC" ColumnName="CC" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
                 <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+                <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Grades">
             <EntityTypeMapping TypeName="KEPT_DBModel.Grades">
               <MappingFragment StoreEntitySet="Grades">
-                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OportunitiesOfImprovement">
             <EntityTypeMapping TypeName="KEPT_DBModel.OportunitiesOfImprovement">
               <MappingFragment StoreEntitySet="OportunitiesOfImprovement">
-                <ScalarProperty Name="OOIId" ColumnName="OOIId" />
-                <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="GoalDate" ColumnName="GoalDate" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
+                <ScalarProperty Name="OOIId" ColumnName="OOIId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PerformanceProfile">
             <EntityTypeMapping TypeName="KEPT_DBModel.PerformanceProfile">
               <MappingFragment StoreEntitySet="PerformanceProfile">
-                <ScalarProperty Name="PPId" ColumnName="PPId" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
                 <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="PPId" ColumnName="PPId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Skills">
             <EntityTypeMapping TypeName="KEPT_DBModel.Skills">
               <MappingFragment StoreEntitySet="Skills">
-                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="KEPT_DBModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Trainnings">
             <EntityTypeMapping TypeName="KEPT_DBModel.Trainnings">
               <MappingFragment StoreEntitySet="Trainnings">
-                <ScalarProperty Name="TrainningId" ColumnName="TrainningId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Room" ColumnName="Room" />
                 <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TrainningId" ColumnName="TrainningId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TrainningsByPP">
             <EntityTypeMapping TypeName="KEPT_DBModel.TrainningsByPP">
               <MappingFragment StoreEntitySet="TrainningsByPP">
-                <ScalarProperty Name="TrainningId" ColumnName="TrainningId" />
-                <ScalarProperty Name="PPId" ColumnName="PPId" />
-                <ScalarProperty Name="AsistancePorcentage" ColumnName="AsistancePorcentage" />
                 <ScalarProperty Name="Certified" ColumnName="Certified" />
+                <ScalarProperty Name="AsistancePorcentage" ColumnName="AsistancePorcentage" />
+                <ScalarProperty Name="PPId" ColumnName="PPId" />
+                <ScalarProperty Name="TrainningId" ColumnName="TrainningId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="SkillsByPP" TypeName="KEPT_DBModel.SkillsByPP" StoreEntitySet="SkillsByPP">
-            <EndProperty Name="PerformanceProfile">
-              <ScalarProperty Name="PPId" ColumnName="PPId" />
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="KEPT_DBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SkillsByPP" TypeName="KEPT_DBModel.SkillsByPP" StoreEntitySet="SkillsByPP">
             <EndProperty Name="Skills">
               <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+            </EndProperty>
+            <EndProperty Name="PerformanceProfile">
+              <ScalarProperty Name="PPId" ColumnName="PPId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

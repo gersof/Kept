@@ -19,10 +19,8 @@ namespace KeptWeb.Models
         public long QuestionId { get; set; }
         public float Score { get; set; }
         public long EmployeeCC { get; set; }
-        public string SelfScore { get; set; }
-        public string LeadScore { get; set; }
+        public float SelfScore { get; set; }
         public string SelfComments { get; set; }
-        public string LeadComments { get; set; }
     
         public virtual AssessmentTestQuestions AssessmentTestQuestions { get; set; }
         public virtual Employee Employee { get; set; }

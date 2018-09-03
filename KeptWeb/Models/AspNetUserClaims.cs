@@ -12,14 +12,13 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OportunitiesOfImprovement
+    public partial class AspNetUserClaims
     {
-        public long OOIId { get; set; }
-        public long CAndPId { get; set; }
-        public string Description { get; set; }
-        public bool Completed { get; set; }
-        public System.DateTime GoalDate { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual CompetencyAndPerformance CompetencyAndPerformance { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

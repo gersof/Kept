@@ -21,6 +21,7 @@ namespace KeptWeb.Controllers
 
 		// GET: AssessmentTests
 		[HttpGet]
+		[Authorize]
 		public ActionResult Index()
 		{
 			return View();
@@ -35,7 +36,7 @@ namespace KeptWeb.Controllers
 						 Formatting.None,
 						 new JsonSerializerSettings()
 						 {
-							 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+							 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 						 });
 
 			return Content(list, "application/json");
