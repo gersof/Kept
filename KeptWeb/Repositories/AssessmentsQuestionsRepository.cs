@@ -32,12 +32,16 @@ namespace KeptWeb.Repositories
 			return assessmentQuestions;
 		}
 
-		public bool CreateAssessment(AssessmentTestResults assessment)
+		public bool CreateAssessment(List<AssessmentTestResults> assessment,string employeeId)
 		{
 			try
 			{
-				_context.AssessmentTestResults.Add(assessment);
-				_context.SaveChanges();
+				foreach (var item in assessment)
+				{
+					item.EmployeeDocumentId = employeeId;
+					_context.AssessmentTestResults.Add(item);
+					_context.SaveChanges();
+				}
 				return true;
 			}
 			catch

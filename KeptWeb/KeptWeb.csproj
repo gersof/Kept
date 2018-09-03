@@ -211,9 +211,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssessmentTestsController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OpportunitiesImprovementController.cs" />
+    <Compile Include="Controllers\OOIandAIController.cs" />
     <Compile Include="Controllers\PerformanceProfileController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\StrengthsController.cs" />
@@ -279,6 +280,8 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\StrengthsByEmployee.cs" />
+    <Compile Include="Models\OOIandAI.cs" />
     <Compile Include="Models\Oportunities.cs" />
     <Compile Include="Models\OportunitiesOfImprovement.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
@@ -304,7 +307,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AssessmentsQuestionsRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
-    <Compile Include="Repositories\OportunitiesRepository.cs" />
+    <Compile Include="Repositories\StrengthsRepository.cs" />
+    <Compile Include="Repositories\OOIAndAIRepository.cs" />
     <Compile Include="Repositories\SkillsRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -392,10 +396,11 @@
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Trainings\Index.cshtml" />
     <Content Include="Views\Performanceprofile\Index.cshtml" />
-    <Content Include="Views\OpportunitiesImprovement\Index.cshtml" />
+    <Content Include="Views\OOIandAI\Index.cshtml" />
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
     <Content Include="Views\Account\RegisterRoles.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
