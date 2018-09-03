@@ -9,35 +9,39 @@
 
 namespace KeptWeb.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Employee
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            this.AssessmentTestResults = new HashSet<AssessmentTestResults>();
-            this.Employee1 = new HashSet<Employee>();
-            this.PerformanceProfile = new HashSet<PerformanceProfile>();
-        }
-    
-        public string DocumentId { get; set; }
-        public string FullName { get; set; }
-        public Nullable<int> DeliveryUnitId { get; set; }
-        public Nullable<int> GradeId { get; set; }
-        public string UserId { get; set; }
-        public string LeadDocumentId { get; set; }
-        public string PictureURL { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentTestResults> AssessmentTestResults { get; set; }
-        public virtual DeliveryUnits DeliveryUnits { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee1 { get; set; }
-        public virtual Employee Employee2 { get; set; }
-        public virtual Grades Grades { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PerformanceProfile> PerformanceProfile { get; set; }
-    }
+	using System;
+	using System.Collections.Generic;
+
+	public partial class Employee
+	{
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+		public Employee()
+		{
+			this.AssessmentTestResults = new HashSet<AssessmentTestResults>();
+			this.Employee1 = new HashSet<Employee>();
+			this.PerformanceProfile = new HashSet<PerformanceProfile>();
+			this.Employee1 = new HashSet<Employee>();
+		}
+
+		public string DocumentId { get; set; }
+		public string FullName { get; set; }
+		public Nullable<int> DeliveryUnitId { get; set; }
+		public Nullable<int> GradeId { get; set; }
+		public string UserId { get; set; }
+		public string LeadDocumentId { get; set; }
+		public string PictureURL { get; set; }
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<AssessmentTestResults> AssessmentTestResults { get; set; }
+		public virtual DeliveryUnits DeliveryUnits { get; set; }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<Employee> Employee1 { get; set; }
+		public virtual Employee Employee2 { get; set; }
+		public virtual Grades Grades { get; set; }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<PerformanceProfile> PerformanceProfile { get; set; }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<Employee> Employee1 { get; set; }
+		public virtual Employee Employee2 { get; set; }
+	}
 }
