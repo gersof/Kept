@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace KeptWeb.Controllers
 {
-    public class TrainningsController : Controller
+    public class TrainingsController : Controller
     {
         // GET: Trainnings
         public ActionResult Index()

@@ -9,6 +9,7 @@ namespace KeptWeb.Controllers
     public class AssessmentTestsController : Controller
     {
         // GET: AssessmentTests
+        [Authorize]
         public ActionResult Index()
         {
             return View();
