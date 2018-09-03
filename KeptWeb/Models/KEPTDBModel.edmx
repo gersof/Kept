@@ -119,18 +119,11 @@
           </Key>
           <Property Name="DocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="DeliveryUnitId" Type="int" />
           <Property Name="GradeId" Type="int" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LeadDocumentId" Type="varchar" MaxLength="30" />
           <Property Name="PictureURL" Type="varchar" MaxLength="300" />
-=======
-          <Property Name="DeliveryUnitId" Type="int" Nullable="false" />
-          <Property Name="GradeId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="LeadCC" Type="bigint" />
->>>>>>> f15307648e9e79e542ac998e021670c4468e4ae4
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -348,17 +341,10 @@
           <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-<<<<<<< HEAD
               <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="Employee1">
               <PropertyRef Name="LeadDocumentId" />
-=======
-              <PropertyRef Name="CC" />
-            </Principal>
-            <Dependent Role="Employee1">
-              <PropertyRef Name="LeadCC" />
->>>>>>> f15307648e9e79e542ac998e021670c4468e4ae4
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -649,10 +635,6 @@
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
             <End Role="Skills" EntitySet="Skills" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Employee" Association="KEPT_DBModel.FK_Employee_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Employee1" EntitySet="Employee" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -788,10 +770,6 @@
           <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
           <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="LeadCC" Type="Int64" />
-          <NavigationProperty Name="Employee1" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
-          <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -1071,18 +1049,6 @@
           <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
           <End Type="KEPT_DBModel.Skills" Role="Skills" Multiplicity="*" />
         </Association>
-        <Association Name="FK_Employee_Employee">
-          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="KEPT_DBModel.Employee" Role="Employee1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="CC" />
-            </Principal>
-            <Dependent Role="Employee1">
-              <PropertyRef Name="LeadCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1198,12 +1164,8 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="KEPT_DBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-<<<<<<< HEAD
                 <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
                 <ScalarProperty Name="LeadDocumentId" ColumnName="LeadDocumentId" />
-=======
-                <ScalarProperty Name="LeadCC" ColumnName="LeadCC" />
->>>>>>> f15307648e9e79e542ac998e021670c4468e4ae4
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GradeId" ColumnName="GradeId" />
                 <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
