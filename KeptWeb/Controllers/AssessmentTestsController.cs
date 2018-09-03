@@ -32,14 +32,15 @@ namespace KeptWeb.Controllers
 			var AssessmentsQuestions = _assessment.GetAssessments();
 
 			var list = JsonConvert.SerializeObject(AssessmentsQuestions,
-					   Formatting.None,
-					   new JsonSerializerSettings()
-					   {
-						   ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-					   });
+						 Formatting.None,
+						 new JsonSerializerSettings()
+						 {
+							 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+						 });
 
 			return Content(list, "application/json");
-			
+
 		}
 	}
+
 }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace KeptWeb.Controllers
 {
-    public class StrenghtsController : Controller
+    public class StrengthsController : Controller
     {
         // GET: Strenghts
         public ActionResult Index()

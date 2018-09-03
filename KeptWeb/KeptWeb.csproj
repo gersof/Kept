@@ -215,8 +215,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OportunitiesImprovementController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
-    <Compile Include="Controllers\StrenghtsController.cs" />
-    <Compile Include="Controllers\TrainningsController.cs" />
+    <Compile Include="Controllers\StrengthsController.cs" />
+    <Compile Include="Controllers\TrainingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -360,9 +360,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\AssessmentTests\Index.cshtml" />
     <Content Include="Views\OportunitiesImprovement\Index.cshtml" />
-    <Content Include="Views\Strenghts\Index.cshtml" />
+    <Content Include="Views\Strengths\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
-    <Content Include="Views\Trainnings\Index.cshtml" />
+    <Content Include="Views\Trainings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
