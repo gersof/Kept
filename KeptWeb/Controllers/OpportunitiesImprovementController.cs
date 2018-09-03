@@ -20,6 +20,7 @@ namespace KeptWeb.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public ActionResult GetOportunities()
 		{
 			var oportunities = _oportunities.GetOportunities();

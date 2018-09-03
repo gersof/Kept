@@ -18,8 +18,8 @@ namespace KeptWeb.Models
         public PerformanceProfile()
         {
             this.CAndPByPP = new HashSet<CAndPByPP>();
+            this.SkillsByPP = new HashSet<SkillsByPP>();
             this.TrainningsByPP = new HashSet<TrainningsByPP>();
-            this.Skills = new HashSet<Skills>();
         }
     
         public long PPId { get; set; }
@@ -33,8 +33,8 @@ namespace KeptWeb.Models
         public virtual ICollection<CAndPByPP> CAndPByPP { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrainningsByPP> TrainningsByPP { get; set; }
+        public virtual ICollection<SkillsByPP> SkillsByPP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Skills> Skills { get; set; }
+        public virtual ICollection<TrainningsByPP> TrainningsByPP { get; set; }
     }
 }
