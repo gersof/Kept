@@ -12,17 +12,12 @@ namespace KeptWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AssessmentTestResults
+    public partial class Strengths
     {
-        public long AssessmentId { get; set; }
-        public System.DateTime CompletedDate { get; set; }
-        public long QuestionId { get; set; }
-        public float Score { get; set; }
-        public string EmployeeDocumentId { get; set; }
-        public float SelfScore { get; set; }
-        public string SelfComments { get; set; }
+        public long StrenghId { get; set; }
+        public long CAndPId { get; set; }
+        public string Description { get; set; }
     
-        public virtual AssessmentTestQuestions AssessmentTestQuestions { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual CompetencyAndPerformance CompetencyAndPerformance { get; set; }
     }
 }

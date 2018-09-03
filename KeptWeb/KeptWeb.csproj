@@ -235,6 +235,7 @@
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssessmentQuestions.cs" />
     <Compile Include="Models\AssessmentTestQuestions.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -276,6 +277,7 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Oportunities.cs" />
     <Compile Include="Models\OportunitiesOfImprovement.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -283,6 +285,9 @@
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Skills.cs">
+      <DependentUpon>KEPTDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Strengths.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
@@ -296,8 +301,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AssessmentsQuestionsRepository.cs" />
+    <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\OportunitiesRepository.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AssessmentQuestions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

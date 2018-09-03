@@ -1,4 +1,4 @@
-﻿
+﻿@model IList<KeptWeb.Models.AssessmentQuestions>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,87 +8,125 @@
     <br />
     <h2 class="text-center">Assessment Test</h2>
     <br />
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="CustumerManagement">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCustumerManagement" aria-expanded="true" aria-controls="collapseCustumerManagement">
-                    Custumer Management
-                </a>
-            </h4>
-        </div>
-        <div id="collapseCustumerManagement" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="CustumerManagement">
-            <div class="panel-body">
-                Custumer Management body
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading" role="tab" id="@("Item_"+item.CAndPId)">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="@("#collapseItem_"+item.CAndPId)" aria-expanded="false" aria-controls="@("collapseItem_"+item.CAndPId)">
+                        @item.Name
+                    </a>
+                </h4>
+            </div>
+            <div id="@("collapseItem_"+item.CAndPId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@("Item_"+item.CAndPId)">
+                <div class="panel-body">
+                    <p>
+                        @item.Description
+                    </p>
+                    @foreach (var question in item.AssessmentTestsQuestions)
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>
+                                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">
+                                    </span>
+                                    @question.QuestionText
+                                </h5>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success">Yes</button>
+                                <button class="btn btn-danger">No</button>
+                                <textarea cols="25" rows="2"></textarea>
+                            </div>                            
+                        </div>
+                    <hr />
+                }
+                </div>
             </div>
         </div>
+    }
+    @*<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="CustumerManagement">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCustumerManagement" aria-expanded="true" aria-controls="collapseCustumerManagement">
+                        Custumer Management
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseCustumerManagement" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="CustumerManagement">
+                <div class="panel-body">
+                    Custumer Management body
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="Flexibility">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFlexibility" aria-expanded="false" aria-controls="collapseFlexibility">
+                        Flexibility
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFlexibility" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Flexibility">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="TeamWork">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTeamWork" aria-expanded="false" aria-controls="collapseTeamWork">
+                        Team Work
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTeamWork" class="panel-collapse collapse" role="tabpanel" aria-labelledby="TeamWork">
+                <div class="panel-body">
+                    Team work body
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="ResultOrientation">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseResultOrientation" aria-expanded="false" aria-controls="collapseResultOrientation">
+                        Result Orientation
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseResultOrientation" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ResultOrientation">
+                <div class="panel-body">
+                    Result Orientation body
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="Leadership">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLeadership" aria-expanded="false" aria-controls="collapseLeadership">
+                        Leadership
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseLeadership" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Leadership">
+                <div class="panel-body">
+                    Leadership Body
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="LearningCapabilities">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLearningCapabilities" aria-expanded="false" aria-controls="collapseLearningCapabilities">
+                        Learning Capabilities
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseLearningCapabilities" class="panel-collapse collapse" role="tabpanel" aria-labelledby="LearningCapabilities">
+                <div class="panel-body">
+                    Learning Capabilities Body
+                </div>
+            </div>
+        </div>*@
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="Flexibility">
-            <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFlexibility" aria-expanded="false" aria-controls="collapseFlexibility">
-                    Flexibility
-                </a>
-            </h4>
-        </div>
-        <div id="collapseFlexibility" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Flexibility">
-            <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="TeamWork">
-            <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse"  data-parent="#accordion" href="#collapseTeamWork" aria-expanded="false" aria-controls="collapseTeamWork">
-                    Team Work
-                </a>
-            </h4>
-        </div>
-        <div id="collapseTeamWork" class="panel-collapse collapse" role="tabpanel" aria-labelledby="TeamWork">
-            <div class="panel-body">
-                Team work body
-            </div>
-        </div>
-    </div> 
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="ResultOrientation">
-            <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseResultOrientation" aria-expanded="false" aria-controls="collapseResultOrientation">
-                    Result Orientation
-                </a>
-            </h4>
-        </div>
-        <div id="collapseResultOrientation" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ResultOrientation">
-            <div class="panel-body">
-                Result Orientation body
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="Leadership">
-            <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLeadership" aria-expanded="false" aria-controls="collapseLeadership">
-                    Leadership
-                </a>
-            </h4>
-        </div>
-        <div id="collapseLeadership" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Leadership">
-            <div class="panel-body">
-                Leadership Body
-            </div>
-        </div>
-    </div><div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="LearningCapabilities">
-            <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLearningCapabilities" aria-expanded="false" aria-controls="collapseLearningCapabilities">
-                    Learning Capabilities
-                </a>
-            </h4>
-        </div>
-        <div id="collapseLearningCapabilities" class="panel-collapse collapse" role="tabpanel" aria-labelledby="LearningCapabilities">
-            <div class="panel-body">
-                Learning Capabilities Body
-            </div>
-        </div>
-    </div>
-</div>

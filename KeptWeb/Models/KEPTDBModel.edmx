@@ -82,7 +82,7 @@
           <Property Name="CompletedDate" Type="datetime" Nullable="false" />
           <Property Name="QuestionId" Type="bigint" Nullable="false" />
           <Property Name="Score" Type="real" Nullable="false" />
-          <Property Name="EmployeeCC" Type="bigint" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="SelfScore" Type="real" Nullable="false" />
           <Property Name="SelfComments" Type="varchar" MaxLength="300" />
         </EntityType>
@@ -115,12 +115,15 @@
         </EntityType>
         <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="CC" />
+            <PropertyRef Name="DocumentId" />
           </Key>
-          <Property Name="CC" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DeliveryUnitId" Type="int" Nullable="false" />
-          <Property Name="GradeId" Type="int" Nullable="false" />
+          <Property Name="DeliveryUnitId" Type="int" />
+          <Property Name="GradeId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LeadDocumentId" Type="varchar" MaxLength="30" />
+          <Property Name="PictureURL" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Grades">
           <Key>
@@ -145,8 +148,11 @@
             <PropertyRef Name="PPId" />
           </Key>
           <Property Name="PPId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeCC" Type="bigint" Nullable="false" />
-          <Property Name="PictureURL" Type="varchar" MaxLength="300" />
+          <Property Name="EmployeeDocumentId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TeamScore" Type="int" />
+          <Property Name="ClientScore" Type="int" />
+          <Property Name="ProjectScore" Type="int" />
+          <Property Name="CompanyScore" Type="int" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
@@ -163,6 +169,14 @@
           </Key>
           <Property Name="SkillId" Type="int" Nullable="false" />
           <Property Name="PPId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Strengths">
+          <Key>
+            <PropertyRef Name="StrenghId" />
+          </Key>
+          <Property Name="StrenghId" Type="bigint" Nullable="false" />
+          <Property Name="CAndPId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -223,10 +237,10 @@
           <End Role="AssessmentTestResults" Type="Self.AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="AssessmentTestResults">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,7 +325,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_DeliveryUnits">
-          <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="1" />
+          <End Role="DeliveryUnits" Type="Self.DeliveryUnits" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryUnits">
@@ -322,8 +336,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Grades">
-          <End Role="Grades" Type="Self.Grades" Multiplicity="1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grades">
@@ -351,10 +377,10 @@
           <End Role="PerformanceProfile" Type="Self.PerformanceProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="PerformanceProfile">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -379,6 +405,18 @@
             </Principal>
             <Dependent Role="SkillsByPP">
               <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Strengths_CompetencyAndPerformance">
+          <End Role="CompetencyAndPerformance" Type="Self.CompetencyAndPerformance" Multiplicity="1" />
+          <End Role="Strengths" Type="Self.Strengths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetencyAndPerformance">
+              <PropertyRef Name="CAndPId" />
+            </Principal>
+            <Dependent Role="Strengths">
+              <PropertyRef Name="CAndPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -424,6 +462,7 @@
           <EntitySet Name="PerformanceProfile" EntityType="Self.PerformanceProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkillsByPP" EntityType="Self.SkillsByPP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Strengths" EntityType="Self.Strengths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainnings" EntityType="Self.Trainnings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainningsByPP" EntityType="Self.TrainningsByPP" Schema="dbo" store:Type="Tables" />
@@ -467,6 +506,10 @@
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Grades" Association="Self.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
             <End Role="Employee" EntitySet="Employee" />
@@ -486,6 +529,10 @@
           <AssociationSet Name="FK_SkillsByPP_Skills" Association="Self.FK_SkillsByPP_Skills">
             <End Role="Skills" EntitySet="Skills" />
             <End Role="SkillsByPP" EntitySet="SkillsByPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Strengths_CompetencyAndPerformance" Association="Self.FK_Strengths_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="Strengths" EntitySet="Strengths" />
           </AssociationSet>
           <AssociationSet Name="FK_TrainningsByPP_PerformanceProfile" Association="Self.FK_TrainningsByPP_PerformanceProfile">
             <End Role="PerformanceProfile" EntitySet="PerformanceProfile" />
@@ -516,6 +563,7 @@
           <EntitySet Name="OportunitiesOfImprovement" EntityType="KEPT_DBModel.OportunitiesOfImprovement" />
           <EntitySet Name="PerformanceProfile" EntityType="KEPT_DBModel.PerformanceProfile" />
           <EntitySet Name="Skills" EntityType="KEPT_DBModel.Skills" />
+          <EntitySet Name="Strengths" EntityType="KEPT_DBModel.Strengths" />
           <EntitySet Name="sysdiagrams" EntityType="KEPT_DBModel.sysdiagrams" />
           <EntitySet Name="Trainnings" EntityType="KEPT_DBModel.Trainnings" />
           <EntitySet Name="TrainningsByPP" EntityType="KEPT_DBModel.TrainningsByPP" />
@@ -551,9 +599,17 @@
             <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
             <End Role="OportunitiesOfImprovement" EntitySet="OportunitiesOfImprovement" />
           </AssociationSet>
+          <AssociationSet Name="FK_Strengths_CompetencyAndPerformance" Association="KEPT_DBModel.FK_Strengths_CompetencyAndPerformance">
+            <End Role="CompetencyAndPerformance" EntitySet="CompetencyAndPerformance" />
+            <End Role="Strengths" EntitySet="Strengths" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_DeliveryUnits" Association="KEPT_DBModel.FK_Employee_DeliveryUnits">
             <End Role="DeliveryUnits" EntitySet="DeliveryUnits" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="KEPT_DBModel.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Grades" Association="KEPT_DBModel.FK_Employee_Grades">
             <End Role="Grades" EntitySet="Grades" />
@@ -657,7 +713,7 @@
           <Property Name="CompletedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="QuestionId" Type="Int64" Nullable="false" />
           <Property Name="Score" Type="Single" Nullable="false" />
-          <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
+          <Property Name="EmployeeDocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SelfScore" Type="Single" Nullable="false" />
           <Property Name="SelfComments" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssessmentTestQuestions" Relationship="KEPT_DBModel.FK_AssessmentTestResults_AssessmentTestQuestions" FromRole="AssessmentTestResults" ToRole="AssessmentTestQuestions" />
@@ -686,6 +742,7 @@
           <NavigationProperty Name="AssessmentTestQuestions" Relationship="KEPT_DBModel.FK_AssessmentTestQuestions_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="AssessmentTestQuestions" />
           <NavigationProperty Name="CAndPByPP" Relationship="KEPT_DBModel.FK_CAndPByPP_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="CAndPByPP" />
           <NavigationProperty Name="OportunitiesOfImprovement" Relationship="KEPT_DBModel.FK_OportunitiesOfImprovement_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="OportunitiesOfImprovement" />
+          <NavigationProperty Name="Strengths" Relationship="KEPT_DBModel.FK_Strengths_CompetencyAndPerformance" FromRole="CompetencyAndPerformance" ToRole="Strengths" />
         </EntityType>
         <EntityType Name="DeliveryUnits">
           <Key>
@@ -698,14 +755,19 @@
         </EntityType>
         <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="CC" />
+            <PropertyRef Name="DocumentId" />
           </Key>
-          <Property Name="CC" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryUnitId" Type="Int32" Nullable="false" />
-          <Property Name="GradeId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryUnitId" Type="Int32" />
+          <Property Name="GradeId" Type="Int32" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LeadDocumentId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssessmentTestResults" Relationship="KEPT_DBModel.FK_AssessmentTestResults_Employee" FromRole="Employee" ToRole="AssessmentTestResults" />
           <NavigationProperty Name="DeliveryUnits" Relationship="KEPT_DBModel.FK_Employee_DeliveryUnits" FromRole="Employee" ToRole="DeliveryUnits" />
+          <NavigationProperty Name="Employee1" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+          <NavigationProperty Name="Employee2" Relationship="KEPT_DBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
           <NavigationProperty Name="Grades" Relationship="KEPT_DBModel.FK_Employee_Grades" FromRole="Employee" ToRole="Grades" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="Employee" ToRole="PerformanceProfile" />
         </EntityType>
@@ -734,8 +796,11 @@
             <PropertyRef Name="PPId" />
           </Key>
           <Property Name="PPId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeCC" Type="Int64" Nullable="false" />
-          <Property Name="PictureURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeDocumentId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TeamScore" Type="Int32" />
+          <Property Name="ClientScore" Type="Int32" />
+          <Property Name="ProjectScore" Type="Int32" />
+          <Property Name="CompanyScore" Type="Int32" />
           <NavigationProperty Name="CAndPByPP" Relationship="KEPT_DBModel.FK_CAndPByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="CAndPByPP" />
           <NavigationProperty Name="Employee" Relationship="KEPT_DBModel.FK_PerformanceProfile_Employee" FromRole="PerformanceProfile" ToRole="Employee" />
           <NavigationProperty Name="TrainningsByPP" Relationship="KEPT_DBModel.FK_TrainningsByPP_PerformanceProfile" FromRole="PerformanceProfile" ToRole="TrainningsByPP" />
@@ -749,6 +814,15 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PerformanceProfile" Relationship="KEPT_DBModel.SkillsByPP" FromRole="Skills" ToRole="PerformanceProfile" />
+        </EntityType>
+        <EntityType Name="Strengths">
+          <Key>
+            <PropertyRef Name="StrenghId" />
+          </Key>
+          <Property Name="StrenghId" Type="Int64" Nullable="false" />
+          <Property Name="CAndPId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CompetencyAndPerformance" Relationship="KEPT_DBModel.FK_Strengths_CompetencyAndPerformance" FromRole="Strengths" ToRole="CompetencyAndPerformance" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -840,10 +914,10 @@
           <End Type="KEPT_DBModel.AssessmentTestResults" Role="AssessmentTestResults" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="AssessmentTestResults">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -883,8 +957,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Strengths_CompetencyAndPerformance">
+          <End Type="KEPT_DBModel.CompetencyAndPerformance" Role="CompetencyAndPerformance" Multiplicity="1" />
+          <End Type="KEPT_DBModel.Strengths" Role="Strengths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetencyAndPerformance">
+              <PropertyRef Name="CAndPId" />
+            </Principal>
+            <Dependent Role="Strengths">
+              <PropertyRef Name="CAndPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_DeliveryUnits">
-          <End Type="KEPT_DBModel.DeliveryUnits" Role="DeliveryUnits" Multiplicity="1" />
+          <End Type="KEPT_DBModel.DeliveryUnits" Role="DeliveryUnits" Multiplicity="0..1" />
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryUnits">
@@ -895,8 +981,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="KEPT_DBModel.Employee" Role="Employee1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="LeadDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Grades">
-          <End Type="KEPT_DBModel.Grades" Role="Grades" Multiplicity="1" />
+          <End Type="KEPT_DBModel.Grades" Role="Grades" Multiplicity="0..1" />
           <End Type="KEPT_DBModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grades">
@@ -912,10 +1010,10 @@
           <End Type="KEPT_DBModel.PerformanceProfile" Role="PerformanceProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
-              <PropertyRef Name="CC" />
+              <PropertyRef Name="DocumentId" />
             </Principal>
             <Dependent Role="PerformanceProfile">
-              <PropertyRef Name="EmployeeCC" />
+              <PropertyRef Name="EmployeeDocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1026,7 +1124,7 @@
               <MappingFragment StoreEntitySet="AssessmentTestResults">
                 <ScalarProperty Name="SelfComments" ColumnName="SelfComments" />
                 <ScalarProperty Name="SelfScore" ColumnName="SelfScore" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="Score" ColumnName="Score" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
@@ -1066,10 +1164,13 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="KEPT_DBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="LeadDocumentId" ColumnName="LeadDocumentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GradeId" ColumnName="GradeId" />
                 <ScalarProperty Name="DeliveryUnitId" ColumnName="DeliveryUnitId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1096,8 +1197,11 @@
           <EntitySetMapping Name="PerformanceProfile">
             <EntityTypeMapping TypeName="KEPT_DBModel.PerformanceProfile">
               <MappingFragment StoreEntitySet="PerformanceProfile">
-                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
-                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="CompanyScore" ColumnName="CompanyScore" />
+                <ScalarProperty Name="ProjectScore" ColumnName="ProjectScore" />
+                <ScalarProperty Name="ClientScore" ColumnName="ClientScore" />
+                <ScalarProperty Name="TeamScore" ColumnName="TeamScore" />
+                <ScalarProperty Name="EmployeeDocumentId" ColumnName="EmployeeDocumentId" />
                 <ScalarProperty Name="PPId" ColumnName="PPId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1108,6 +1212,15 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Strengths">
+            <EntityTypeMapping TypeName="KEPT_DBModel.Strengths">
+              <MappingFragment StoreEntitySet="Strengths">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CAndPId" ColumnName="CAndPId" />
+                <ScalarProperty Name="StrenghId" ColumnName="StrenghId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

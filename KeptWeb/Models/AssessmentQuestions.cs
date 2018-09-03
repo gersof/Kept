@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using KeptWeb.Models;
 
-namespace KeptWeb.ViewModels
+namespace KeptWeb.Models
 {
 	public class AssessmentQuestions
 	{
