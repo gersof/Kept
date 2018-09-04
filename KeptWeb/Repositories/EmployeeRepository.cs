@@ -1,4 +1,5 @@
 ﻿using KeptWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,19 +24,43 @@ namespace KeptWeb.Repositories
 			return _context.Employee.Single(e => e.UserId == userId);
 		}
 
-        public IEnumerable<Employee> GetLeads()
+        public IList<Employee> GetLeads()
         {
             return _context.Employee.Where(e => e.IsLead == true).ToList();
         }
 
-        public IEnumerable<DeliveryUnits> GetDeliveryUnits()
+        public IList<DeliveryUnits> GetDeliveryUnits()
         {
             return _context.DeliveryUnits.ToList();
         }
 
-        public IEnumerable<Grades> GetGrades()
+        public IList<Grades> GetGrades()
         {
             return _context.Grades.ToList();
         }
-    }
+
+		public bool UpdateEmployee(EmployeeViewModel employee)
+		{
+			try
+			{
+				var oldEmployee = GetEmployee(employee.UserId);
+				oldEmployee.FullName = employee.FullName;
+				oldEmployee.GradeId = employee.GradeId;
+				oldEmployee.IsLead = employee.IsLead;
+				oldEmployee.LeadDocumentId = employee.LeadDocumentId;
+				oldEmployee.PictureURL = employee.PictureURL;
+				oldEmployee.UserId = employee.UserId;
+				oldEmployee.DeliveryUnitId = employee.DeliveryUnitId;
+
+				//_context.Employee.Attach(oldEmployee);
+				_context.SaveChanges();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+
+		}
+	}
 }

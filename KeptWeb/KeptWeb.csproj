@@ -260,6 +260,7 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Grades.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -397,6 +398,7 @@
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
     <Content Include="Views\Account\RegisterRoles.cshtml" />
+    <Content Include="Views\Employee\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

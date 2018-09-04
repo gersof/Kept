@@ -10,8 +10,7 @@ namespace KeptWeb.Controllers
     {
         // GET: Trainnings
         [Authorize]
-
-        public ActionResult Index()
+		public ActionResult Index()
         {
             return View();
         }

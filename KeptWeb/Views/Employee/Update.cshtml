@@ -1,0 +1,78 @@
+﻿@model KeptWeb.Models.EmployeeViewModel
+@{
+	ViewBag.Title = "Update";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<div class="form-horizontal">
+	<h4>Personal Data</h4>
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	@Html.HiddenFor(model => model.DocumentId)
+	@Html.HiddenFor(model => model.UserId)
+	<div class="form-group">
+		@Html.LabelFor(model => model.FullName, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.FullName, new { htmlAttributes = new
+				{ @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.FullName, "", new {
+				@class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.DeliveryUnitId, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownListFor(m => m.DeliveryUnitId,
+				new SelectList(Model.DeliveriesUnits, "DUId", "LocationName"), "",
+				new { @class = "form-control" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.GradeId, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownListFor(m => m.GradeId,
+				new SelectList(Model.UserGrades, "GradeId", "Name"), "",
+				new { @class = "form-control" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.LeadDocumentId, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownListFor(m => m.LeadDocumentId,
+				new SelectList(Model.Leads, "DocumentId", "FullName"), "",
+				new { @class = "form-control" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.PictureURL, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.PictureURL, new { htmlAttributes = new
+				{ @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.PictureURL, "", new {
+				@class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.IsLead, htmlAttributes: new { @class =
+			"control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.IsLead, new { htmlAttributes = new
+				{ @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.IsLead, "", new {
+				@class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" class="btn btn-default" value="Update" />
+		</div>
+	</div>
+</div>
+}
