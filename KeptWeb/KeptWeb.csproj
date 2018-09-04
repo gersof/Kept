@@ -260,6 +260,7 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Grades.cs">
       <DependentUpon>KEPTDBModel.tt</DependentUpon>
     </Compile>
@@ -280,6 +281,7 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PerformanceProfileModel.cs" />
     <Compile Include="Models\StrengthsByEmployee.cs" />
     <Compile Include="Models\OOIandAI.cs" />
     <Compile Include="Models\Oportunities.cs" />
@@ -400,6 +402,7 @@
     <Content Include="Views\DemoRating\DemoRating.cshtml" />
     <Content Include="Views\DemoRating\Index.cshtml" />
     <Content Include="Views\Account\RegisterRoles.cshtml" />
+    <Content Include="Views\Employee\Update.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

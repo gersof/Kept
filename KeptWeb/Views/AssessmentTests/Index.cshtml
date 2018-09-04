@@ -29,7 +29,7 @@
                     {
                         <div class="row">
                             <div class="col-md-7">
-                                <h5>
+                                <h5 class="question">
                                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true">
                                     </span>
                                     @question.QuestionText
@@ -38,8 +38,8 @@
                             <div class="col-md-5">
                                 <div class="input-group">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default yesbtnclass" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-ok"></span></button>
-                                        <button type="button" class="btn btn-default nobtnclass" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button type="button" class="btn btn-default yesbtnclass" id="btnyes_@(question.QuestionId)" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button type="button" class="btn btn-default nobtnclass" id="btnno_@(question.QuestionId)" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
                                     <input type="text" class="form-control" aria-label="...">
                                 </div>
