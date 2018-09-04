@@ -23,8 +23,9 @@ namespace KeptWeb.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var employee = _employee.GetEmployee(User.Identity.GetUserId());
-            var profile = _context.PerformanceProfile.ToList();
+            var userID = User.Identity.GetUserId();
+            var employee = _employee.GetEmployee(userID);
+            var profile = _context.PerformanceProfile.FirstOrDefault(pp => pp.EmployeeDocumentId == employee.DocumentId);
             var competencies = _context.CompetencyAndPerformance.Where(cp => cp.IsCompetency == true).ToList();
             var perrformance = _context.CompetencyAndPerformance.Where(cp => cp.IsCompetency == false).ToList();
             var viewmodel = new PerformanceProfileModel { Employee = employee, Profile = null, Competencies = null, Performance = null };
