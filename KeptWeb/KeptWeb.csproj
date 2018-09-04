@@ -280,6 +280,7 @@
       <DependentUpon>KEPTDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PerformanceProfileModel.cs" />
     <Compile Include="Models\StrengthsByEmployee.cs" />
     <Compile Include="Models\OOIandAI.cs" />
     <Compile Include="Models\Oportunities.cs" />
