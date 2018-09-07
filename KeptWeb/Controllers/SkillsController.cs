@@ -1,17 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using KeptWeb.Models;
 using System.Web.Mvc;
+using KeptWeb.Repositories;
 
 namespace KeptWeb.Controllers
 {
-    public class SkillsController : Controller
+	public class SkillsController : Controller
     {
-        // GET: Skills
+		private readonly KEPT_DBEntities _context;
+		private readonly SkillsRepository _repository;
+
+		public SkillsController()
+		{
+			_context = new KEPT_DBEntities();
+			_repository = new SkillsRepository(_context);
+		}
+		// GET: Skills from SQL Server
+		[Authorize]
         public ActionResult Index()
         {
             return View();
         }
+		[HttpGet]
+		[Authorize]
+		public ActionResult GetSkills()
+		{
+			var skills = _repository.GetSkills();
+			return View(skills);
+		}
     }
 }

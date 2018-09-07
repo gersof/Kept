@@ -1,8 +1,58 @@
-﻿
+﻿@model IList<KeptWeb.Models.AssessmentQuestions>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>I am on  Assesment</h2>
+<div class="container">
+    <br />
+    <h2 class="text-center">Assessment Test</h2>
+    <br />
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-warning">
+            <div class="panel-heading" role="tab" id="@("Item_"+item.CAndPId)">
+                <h4 class="panel-title"  >
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="@("#collapseItem_"+item.CAndPId)" aria-expanded="false" aria-controls="@("collapseItem_"+item.CAndPId)">
+                        @item.Name
+                    </a>
+                    <span class="badge" id="@("total_"+item.CAndPId)">0</span>  / <span class="badge">@item.AssessmentTestsQuestions.Count</span>
 
+                </h4>
+            </div>
+            <div id="@("collapseItem_"+item.CAndPId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@("Item_"+item.CAndPId)">
+                <div class="panel-body">
+                    <p>
+                        @item.Description
+                    </p>
+                    @foreach (var question in item.AssessmentTestsQuestions)
+                    {
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5 class="question">
+                                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">
+                                    </span>
+                                    @question.QuestionText
+                                </h5>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default yesbtnclass" id="btnyes_@(question.QuestionId)" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button type="button" class="btn btn-default nobtnclass" id="btnno_@(question.QuestionId)" attrIdQuestion="@(question.QuestionId)" attrCAndPId="@(item.CAndPId)"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="...">
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                </div>
+            </div>
+        </div>
+    }   
+    <button class="btn btn-primary" id="SaveData">Save</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+<script src="~/Scripts/appjs/AssessmentTests.js"></script>
